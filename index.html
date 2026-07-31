@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ───────────────────────────────
    DESIGN TOKENS
@@ -51,6 +51,8 @@ body{
 button,input,select{font-family:inherit;}
 button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 *{-webkit-tap-highlight-color:transparent;}
+.ico{display:inline-flex; flex-shrink:0; line-height:0;}
+.ico svg{display:block;}
 /* ───────────────────────────────
    APP CONTAINER
 ─────────────────────────────── */
@@ -131,9 +133,15 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .bc{
   background:var(--wh); border-radius:15px;
   padding:14px 12px; border:1px solid var(--bd);
-  box-shadow:0 1px 5px rgba(0,0,0,.04);
+  box-shadow:0 3px 12px -2px rgba(36,79,56,.08);
+  transition:.2s;
 }
-.bc-i{font-size:21px; margin-bottom:6px;}
+.bc:active{transform:scale(.98);}
+.bc-i{
+  width:38px; height:38px; border-radius:11px; margin-bottom:9px;
+  background:linear-gradient(150deg,var(--gp),#e4f0e9);
+  color:var(--g); display:flex; align-items:center; justify-content:center;
+}
 .bc h4{font-size:12px; font-weight:700; margin-bottom:3px; line-height:1.35;}
 .bc p {font-size:10.5px; color:var(--ts); line-height:1.5;}
 .trust{
@@ -154,12 +162,17 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .prog-track{height:4px; background:var(--bd); border-radius:10px; overflow:hidden;}
 .prog-bar{height:100%; background:linear-gradient(90deg,var(--g),var(--au)); border-radius:10px; transition:width .5s cubic-bezier(.16,1,.3,1);}
 /* question card */
-.qc{
+.q-card{
   background:var(--wh); border-radius:20px;
-  padding:20px 17px; border:1px solid var(--bd);
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  padding:22px 18px; border:1px solid var(--bd);
+  box-shadow:0 10px 32px -8px rgba(36,79,56,.14), 0 2px 8px rgba(36,79,56,.06);
+  animation:qIn .38s cubic-bezier(.16,1,.3,1);
 }
-.q-badge{
+@keyframes qIn{
+  from{opacity:0; transform:translateY(14px) scale(.99);}
+  to{opacity:1; transform:none;}
+}
+.q-tag{
   display:inline-flex; align-items:center;
   background:var(--gp); border-radius:20px;
   padding:3px 10px; font-size:9px; font-weight:800;
@@ -205,7 +218,7 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
   animation:dotPop .32s cubic-bezier(.34,1.56,.64,1);
 }
 .opt.sel .opt-dot::after,.opt.sel .opt-radio::after{
-  content:'✓'; font-size:10px; color:#fff; font-weight:800;
+  content:''; font-size:10px; color:#fff; font-weight:800;
   animation:tickPop .32s cubic-bezier(.34,1.56,.64,1);
 }
 @keyframes dotPop{
@@ -232,7 +245,7 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .hint-head{
   display:flex; align-items:center; gap:7px;
   padding:9px 13px 8px;
-  background:var(--g);
+  background:var(--g); color:#fff;
 }
 .hint-head span{
   font-size:10px; font-weight:800; color:#fff;
@@ -305,14 +318,14 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
   position:relative; overflow:hidden;
 }
 .r-hero::before{
-  content:''; position:absolute; top:-50px; right:-50px;
-  width:170px; height:170px; border-radius:50%;
-  background:rgba(255,255,255,.05);
+  content:''; position:absolute; top:-60px; right:-60px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(255,255,255,.06); filter:blur(4px);
 }
 .r-hero::after{
-  content:''; position:absolute; bottom:-70px; left:-30px;
-  width:155px; height:155px; border-radius:50%;
-  background:rgba(196,150,64,.14);
+  content:''; position:absolute; bottom:-80px; left:-40px;
+  width:190px; height:190px; border-radius:50%;
+  background:rgba(196,150,64,.17); filter:blur(8px);
 }
 .r-badge{
   display:inline-flex; align-items:center; gap:5px;
@@ -325,6 +338,15 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .bg-o{background:rgba(217,113,74,.28); color:#f5bdb4; border:1px solid rgba(217,113,74,.4);}
 /* donut */
 .donut{position:relative; width:128px; height:128px; margin:0 auto 16px; z-index:1;}
+.donut::before{
+  content:''; position:absolute; inset:-22px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.16), transparent 68%);
+  z-index:-1; animation:donutGlow 3.2s ease-in-out infinite;
+}
+@keyframes donutGlow{
+  0%,100%{opacity:.7; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.06);}
+}
 .donut svg{width:100%; height:100%; transform:rotate(-90deg);}
 .donut circle{fill:none; stroke-width:11; stroke-linecap:round;}
 .dc-bg{stroke:rgba(255,255,255,.13);}
@@ -349,12 +371,13 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .rs{
   background:var(--wh); border-radius:17px; margin-bottom:11px;
   border:1px solid var(--bd); overflow:hidden;
-  box-shadow:0 1px 7px rgba(0,0,0,.04);
+  box-shadow:0 4px 16px -4px rgba(36,79,56,.09);
 }
 .rs-hdr{
   padding:12px 16px; border-bottom:1px solid var(--bd);
   display:flex; align-items:center; gap:7px;
 }
+.rs-hdr svg{color:var(--g); flex-shrink:0;}
 .rs-hdr h3{font-size:12.5px; font-weight:800; color:var(--tx);}
 .rs-body{padding:13px 16px;}
 /* micro dot rows */
@@ -388,9 +411,10 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .pi{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f3f5f1;}
 .pi:last-child{border-bottom:none; padding-bottom:0;}
 .pi-ico{
-  width:40px; height:40px; border-radius:10px;
-  background:var(--gp); flex-shrink:0;
-  display:flex; align-items:center; justify-content:center; font-size:20px;
+  width:40px; height:40px; border-radius:11px;
+  background:linear-gradient(150deg,var(--gp),#e4f0e9); color:var(--gd);
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
 }
 .pi-info{flex:1; min-width:0;}
 .pi-info h4{font-size:12.5px; font-weight:700; margin-bottom:2px;}
@@ -404,7 +428,11 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
   border-radius:17px; padding:17px; margin-bottom:11px;
   border:1px solid var(--gm); text-align:center;
 }
-.enc-ico{font-size:25px; margin-bottom:6px;}
+.enc-ico{
+  width:46px; height:46px; border-radius:50%; margin:0 auto 9px;
+  background:rgba(255,255,255,.55); color:var(--g);
+  display:flex; align-items:center; justify-content:center;
+}
 .enc h3{font-family:'Fraunces',serif; font-size:16px; color:var(--gd); margin-bottom:5px;}
 .enc p {font-size:11.5px; color:var(--tm); line-height:1.65;}
 /* share */
@@ -423,7 +451,7 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 .lead-hdr h3{font-family:'Fraunces',serif; font-size:17px; margin-bottom:6px;}
 .lead-hdr p {font-size:11.5px; opacity:.85; line-height:1.65;}
 .lead-body{padding:17px;}
-.fr{margin-bottom:12px;}
+.fr{margin-bottom:12px; position:relative;}
 .fr label{
   display:block; font-size:10px; font-weight:800;
   color:var(--ts); margin-bottom:5px;
@@ -434,17 +462,25 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
   border:1.5px solid var(--bd); border-radius:11px;
   font-size:16px; /* prevents iOS zoom */
   background:var(--bg); color:var(--tx);
-  -webkit-appearance:none; transition:border-color .2s;
+  -webkit-appearance:none; transition:border-color .2s, box-shadow .2s, background .2s;
 }
-.fr input:focus,.fr select:focus{outline:none; border-color:var(--g); background:var(--wh);}
+.fr input:focus,.fr select:focus{outline:none; border-color:var(--g); background:var(--wh); box-shadow:0 0 0 4px rgba(59,125,85,.12);}
+.fr-err{font-size:10.5px; color:#c0563a; margin-top:5px; display:none; font-weight:600;}
+.fr.invalid input,.fr.invalid select{border-color:#d9704a; background:#fdf3f0;}
+.fr.invalid .fr-err{display:block;}
+.fr.valid input,.fr.valid select{border-color:var(--g);}
+@keyframes shakeF{0%,100%{transform:translateX(0);}20%{transform:translateX(-5px);}40%{transform:translateX(5px);}60%{transform:translateX(-3px);}80%{transform:translateX(3px);}}
+.fr.shake{animation:shakeF .35s;}
 .fr2{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:12px;}
 @media(max-width:340px){.fr2{grid-template-columns:1fr;}}
-.priv{font-size:10.5px; color:var(--ts); text-align:center; margin-bottom:13px; line-height:1.6;}
+.priv{font-size:10.5px; color:var(--ts); text-align:center; margin-bottom:13px; line-height:1.6; display:flex; align-items:center; justify-content:center; gap:5px;}
+.priv .ico{flex-shrink:0;}
 .submit{
   width:100%; padding:16px; border-radius:13px;
   background:linear-gradient(135deg,var(--gd),var(--g));
   color:#fff; font-size:15px; font-weight:800;
   box-shadow:0 5px 18px rgba(59,125,85,.35); transition:.2s;
+  display:flex; align-items:center; justify-content:center; gap:7px;
 }
 .submit:active{transform:scale(.98); opacity:.88;}
 .disc{font-size:10.5px; color:var(--ts); line-height:1.65; text-align:center; padding:0 12px 22px;}
@@ -452,7 +488,12 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
    SUCCESS
 ─────────────────────────────── */
 .success{padding:54px 22px; text-align:center;}
-.success-ico{font-size:58px; margin-bottom:17px;}
+.success-ico{
+  width:84px; height:84px; border-radius:50%; margin:0 auto 18px;
+  background:linear-gradient(150deg,var(--gp),var(--ap));
+  color:var(--g); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 26px -6px rgba(59,125,85,.25);
+}
 .success h2{font-family:'Fraunces',serif; font-size:25px; color:var(--gd); margin-bottom:10px;}
 .success p {font-size:13.5px; color:var(--tm); line-height:1.7; max-width:290px; margin:0 auto 24px;}
 .restart{
@@ -489,7 +530,7 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
   border-radius: 7px;
 }
 .opt.multi.sel .opt-radio::after {
-  content: '✓';
+  content: '';
 }
 .opt.multi.exclusive{margin-bottom:8px;}
 .opt-exclusive-label{
@@ -503,8 +544,7 @@ button{-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
 
 
 /* Brand, loading state & responsive refinements */
-body{font-family:'Montserrat',sans-serif;}
-.home-h,.q-text,.r-title,.donut-num,.enc h3,.share-inner h3,.lead-hdr h3,.success h2{font-family:'Montserrat',sans-serif;letter-spacing:-.035em;}
+.home-h,.q-text,.r-title,.donut-num,.enc h3,.share-inner h3,.lead-hdr h3,.success h2{letter-spacing:-.01em;}
 .hdr-logo{background:#fff;border:1px solid var(--bd);box-shadow:0 5px 14px rgba(26,44,34,.1);overflow:hidden;}
 .hdr-logo img{width:100%;height:100%;object-fit:cover;display:block;}
 .page-loader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:var(--bg);transition:opacity .35s ease,visibility .35s ease;}
@@ -557,21 +597,21 @@ body{font-family:'Montserrat',sans-serif;}
 <!-- HOME -->
 <div id="s-home" class="screen active">
   <div class="home-hero">
-    <div class="home-tag">✨ Bài test sức khỏe cá nhân hóa</div>
+    <div class="home-tag"><span class="ico" data-icon="sparkle" data-size="12"></span> Bài test sức khỏe cá nhân hóa</div>
     <h2 class="home-h">Cơ thể bạn<br>đang <em>cần gì</em><br>nhất lúc này?</h2>
     <p class="home-p">Bài test cá nhân hóa — hệ thống phân tích và gợi ý những dưỡng chất phù hợp riêng cho bạn</p>
     <button class="cta" onclick="show('s-quiz'); renderQ()">Bắt đầu khám phá →</button>
     <div class="home-meta">
-      <span>⏱ Chỉ 3 phút</span>
-      <span>🎯 Cá nhân hóa 100%</span>
-      <span>🔒 Miễn phí & bảo mật</span>
+      <span><span class="ico" data-icon="clock" data-size="13"></span> Chỉ 3 phút</span>
+      <span><span class="ico" data-icon="target" data-size="13"></span> Cá nhân hóa 100%</span>
+      <span><span class="ico" data-icon="shield" data-size="13"></span> Miễn phí & bảo mật</span>
     </div>
   </div>
   <div class="bnet">
-    <div class="bc"><div class="bc-i">🌱</div><h4>Hiểu cơ thể mình hơn</h4><p>Biết chính xác cơ thể đang thiếu gì để bổ sung đúng chỗ</p></div>
-    <div class="bc"><div class="bc-i">🎯</div><h4>Gợi ý sản phẩm đúng với bạn</h4><p>Không mua thừa, không bỏ lỡ — đúng nhu cầu thực sự</p></div>
-    <div class="bc"><div class="bc-i">📖</div><h4>Kiến thức sức khỏe thực tế</h4><p>Hiểu tại sao — không chỉ được bảo phải làm gì</p></div>
-    <div class="bc"><div class="bc-i">💌</div><h4>Tài liệu cá nhân hóa</h4><p>Nhận thêm lộ trình chăm sóc sức khỏe riêng cho bạn</p></div>
+    <div class="bc"><div class="bc-i"><span class="ico" data-icon="leaf" data-size="19"></span></div><h4>Hiểu cơ thể mình hơn</h4><p>Biết chính xác cơ thể đang thiếu gì để bổ sung đúng chỗ</p></div>
+    <div class="bc"><div class="bc-i"><span class="ico" data-icon="target" data-size="19"></span></div><h4>Gợi ý sản phẩm đúng với bạn</h4><p>Không mua thừa, không bỏ lỡ — đúng nhu cầu thực sự</p></div>
+    <div class="bc"><div class="bc-i"><span class="ico" data-icon="book" data-size="19"></span></div><h4>Kiến thức sức khỏe thực tế</h4><p>Hiểu tại sao — không chỉ được bảo phải làm gì</p></div>
+    <div class="bc"><div class="bc-i"><span class="ico" data-icon="mail" data-size="19"></span></div><h4>Tài liệu cá nhân hóa</h4><p>Nhận thêm lộ trình chăm sóc sức khỏe riêng cho bạn</p></div>
   </div>
   <div class="trust">
     Tất cả sản phẩm TY Health Supplements nhập khẩu chính ngạch từ New Zealand — đầy đủ giấy phép lưu hành tại Việt Nam.
@@ -618,7 +658,7 @@ body{font-family:'Montserrat',sans-serif;}
 <!-- SUCCESS -->
 <div id="s-success" class="screen">
   <div class="success">
-    <div class="success-ico">🌿</div>
+    <div class="success-ico"><span class="ico" data-icon="leaf" data-size="34"></span></div>
     <h2>Tuyệt vời, cảm ơn bạn!</h2>
     <p>Chuyên viên TY Health sẽ liên hệ trong vòng 24 giờ với tài liệu sức khỏe được cá nhân hóa riêng cho bạn.</p>
     <button class="restart" onclick="restart()">← Làm lại bài test</button>
@@ -630,8 +670,41 @@ const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbySkvwpua601TZobx
 console.log("TY Health Check — V14.2 Female Hormone Product Logic");
 
 // ══════════════════════════════════════════════════════
-// 1) QUESTION BANK — cá nhân hóa theo giới tính, độ tuổi, trẻ em
+// 0) ICON SYSTEM — bộ icon line-art tối giản, dùng thay emoji
 // ══════════════════════════════════════════════════════
+const ICONS = {
+  leaf:   '<path d="M5 21c0-9.5 6.5-16 16-16 0 9.5-6.5 16-16 16z"/><path d="M5 21C9 17 13 13 17 9"/>',
+  target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+  book:   '<path d="M2 5.2c2-1.1 4.4-1.7 6.8-1.7 1.9 0 3.2.5 3.2.5v13.4S10.5 16.5 8.8 16.5 4 17.4 2 18.4z"/><path d="M22 5.2c-2-1.1-4.4-1.7-6.8-1.7-1.9 0-3.2.5-3.2.5v13.4s1.5-1 3.2-1 4.8.9 6.8 1.9z"/>',
+  mail:   '<rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6.5 9 6.5 9-6.5"/>',
+  clock:  '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3.3 1.9"/>',
+  shield: '<path d="M12 2.5 4.5 5.5v5.8c0 5 3.2 8.8 7.5 10.2 4.3-1.4 7.5-5.2 7.5-10.2V5.5z"/><path d="m8.7 12 2.3 2.3 4.3-4.3"/>',
+  sparkle:'<path d="M12 3.5 13.7 8.3 18.5 10 13.7 11.7 12 16.5 10.3 11.7 5.5 10 10.3 8.3z"/><path d="M19 3.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
+  flask:  '<path d="M9.5 2.5h5"/><path d="M10.3 2.5V9L5 18.7a1.8 1.8 0 0 0 1.6 2.6h10.8a1.8 1.8 0 0 0 1.6-2.6L13.7 9V2.5"/><path d="M7 15.5h10"/>',
+  bulb:   '<path d="M9.3 18h5.4"/><path d="M10 21h4"/><path d="M12 3.2a5.8 5.8 0 0 0-3.8 10.1c.7.6 1.1 1.4 1.1 2.4h5.4c0-1 .4-1.8 1.1-2.4A5.8 5.8 0 0 0 12 3.2z"/>',
+  star:   '<path d="m12 2.5 2.8 6.3 6.7.7-5 4.6 1.3 6.7-5.8-3.3-5.8 3.3 1.3-6.7-5-4.6 6.7-.7z"/>',
+  warning:'<path d="M12 3.2 2.2 20h19.6z"/><path d="M12 9.3v4.7"/><circle cx="12" cy="17" r=".7" fill="currentColor" stroke="none"/>',
+  medal:  '<circle cx="12" cy="9" r="5.8"/><path d="M9 14 7.3 21.5 12 18.7l4.7 2.8L15 14"/>',
+  bolt:   '<path d="M13 2.5 4.5 14h6l-1 7.5 9-12.5h-6z"/>',
+  moon:   '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>',
+  pill:   '<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(45 12 12)"/><path d="M8 8v8" transform="rotate(45 12 12)"/>',
+  citrus: '<circle cx="12" cy="12" r="8.5"/><path d="M12 5v14M6.3 7.8l11.4 8.4M6.3 16.2l11.4-8.4"/>',
+  sun:    '<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.5 5.5l2 2M16.5 16.5l2 2M18.5 5.5l-2 2M7.5 16.5l-2 2"/>',
+  droplet:'<path d="M12 3.5s6.5 7.3 6.5 11.8a6.5 6.5 0 0 1-13 0C5.5 10.8 12 3.5 12 3.5z"/>',
+  plus:   '<path d="M12 4.5v15M4.5 12h15"/>',
+  flower: '<circle cx="12" cy="12" r="2.3"/><circle cx="12" cy="6" r="2.6"/><circle cx="12" cy="18" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="12" r="2.6"/>',
+  heart:  '<path d="M12 20.5s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9.5c0 6-8 11-8 11z"/>',
+  gem:    '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6-3 12M15 3l-3 6 3 12"/>',
+  refresh:'<path d="M4 12a8 8 0 0 1 14-5.3L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3L4 16"/><path d="M4 20v-4h4"/>',
+  wind:   '<path d="M3 8h12a3 3 0 1 0-3-3"/><path d="M3 16h15a3 3 0 1 1-3 3"/><path d="M3 12h9"/>',
+};
+function icon(name, size) {
+  const s = size || 18;
+  return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ''}</svg>`;
+}
+document.querySelectorAll('[data-icon]').forEach(el => {
+  el.innerHTML = icon(el.dataset.icon, Number(el.dataset.size) || 16);
+});
 
 const AXIS_LABELS = {
   sleep: 'Giấc ngủ & phục hồi',
@@ -665,7 +738,7 @@ const childAgeQuestion = {
   text: 'Con đang ở nhóm tuổi nào?',
   sub: 'Mỗi giai đoạn phát triển có vấn đề sức khỏe và cách chăm sóc khác nhau.',
   key: 'child_age',
-  hint: '💡 Với trẻ em, đặc biệt trẻ dưới 2 tuổi hoặc trẻ có bệnh nền/đang dùng thuốc, phụ huynh nên tham khảo chuyên gia y tế trước khi sử dụng sản phẩm bổ sung.',
+  hint: 'Với trẻ em, đặc biệt trẻ dưới 2 tuổi hoặc trẻ có bệnh nền/đang dùng thuốc, phụ huynh nên tham khảo chuyên gia y tế trước khi sử dụng sản phẩm bổ sung.',
   opts: [
     { text: 'Dưới 2 tuổi', sub: 'Cần tư vấn chuyên gia y tế trước khi dùng sản phẩm bổ sung', val: 'under2' },
     { text: 'Từ 2–5 tuổi', sub: 'Ăn uống, tiêu hóa, đề kháng, ngủ và vận động nhẹ', val: '2_5' },
@@ -685,7 +758,7 @@ const QUESTION_SETS = {
       text:'Trong 3 tháng gần đây, chu kỳ hoặc cảm giác trước kỳ của bạn thế nào?',
       sub:'Chu kỳ, đau bụng, mụn trước kỳ và cảm xúc là tín hiệu quan trọng về nhịp nội tiết.',
       key:'fy_cycle',
-      hint:'💡 Nếu chu kỳ thất thường, đau nhiều, rong kinh hoặc thay đổi rõ kéo dài, bạn nên tham khảo chuyên gia y tế. Bài test chỉ giúp xác định nhóm ưu tiên chăm sóc.',
+      hint:'Nếu chu kỳ thất thường, đau nhiều, rong kinh hoặc thay đổi rõ kéo dài, bạn nên tham khảo chuyên gia y tế. Bài test chỉ giúp xác định nhóm ưu tiên chăm sóc.',
       opts:[
         opt('Khá đều, ít khó chịu','Chu kỳ và cảm xúc tương đối ổn','good',{hormone_beauty:0}),
         opt('Có đau bụng, mệt, cáu gắt hoặc nổi mụn trước kỳ','Ảnh hưởng nhẹ đến tâm trạng/sắc vóc','mild',{hormone_beauty:2, stress_energy:1}),
@@ -779,11 +852,11 @@ const QUESTION_SETS = {
       sub:'Câu này giúp kết quả ưu tiên đúng điều bạn đang cần nhất.',
       key:'goal',
       opts:[
-        opt('⚡ Năng lượng và giảm mệt mỏi',null,'energy',{stress_energy:2}),
-        opt('✨ Da, tóc và sắc vóc',null,'beauty',{hormone_beauty:2}),
-        opt('😴 Ngủ ngon và bớt stress',null,'sleep',{sleep:2}),
-        opt('🌿 Tiêu hóa nhẹ bụng hơn',null,'digestion',{digestion:2}),
-        opt('🌸 Chu kỳ/nội tiết ổn định hơn',null,'hormone',{hormone_beauty:2})
+        opt('Năng lượng và giảm mệt mỏi',null,'energy',{stress_energy:2}),
+        opt('Da, tóc và sắc vóc',null,'beauty',{hormone_beauty:2}),
+        opt('Ngủ ngon và bớt stress',null,'sleep',{sleep:2}),
+        opt('Tiêu hóa nhẹ bụng hơn',null,'digestion',{digestion:2}),
+        opt('Chu kỳ/nội tiết ổn định hơn',null,'hormone',{hormone_beauty:2})
       ]
     }
   ],
@@ -794,7 +867,7 @@ const QUESTION_SETS = {
       text:'Gần đây chị có gặp các dấu hiệu như bốc hỏa, khô da, dễ cáu gắt vô cớ hoặc chu kỳ ngắn lại không?',
       sub:'Một số phụ nữ giai đoạn tiền mãn kinh có thể thấy chu kỳ từ khoảng 28 ngày rút còn 23–24 ngày, kèm thay đổi da, ngủ và cảm xúc.',
       key:'fm_peri',
-      hint:'💡 Những thay đổi này có thể liên quan đến giai đoạn chuyển tiếp nội tiết. Nếu ra máu bất thường, rong kinh, đau nhiều hoặc triệu chứng ảnh hưởng rõ, chị nên tham khảo bác sĩ/chuyên gia.',
+      hint:'Những thay đổi này có thể liên quan đến giai đoạn chuyển tiếp nội tiết. Nếu ra máu bất thường, rong kinh, đau nhiều hoặc triệu chứng ảnh hưởng rõ, chị nên tham khảo bác sĩ/chuyên gia.',
       opts:[
         opt('Không rõ rệt','Chu kỳ, da và cảm xúc khá ổn','good',{hormone_beauty:0}),
         opt('Có vài dấu hiệu nhẹ: da khô hơn, dễ cáu hoặc chu kỳ hơi ngắn','Nên bắt đầu chăm nền nội tiết và phục hồi','mild',{hormone_beauty:2, sleep:1, stress_energy:1}),
@@ -888,11 +961,11 @@ const QUESTION_SETS = {
       sub:'Kết quả sẽ ưu tiên theo vấn đề chị chọn.',
       key:'goal',
       opts:[
-        opt('🌸 Tiền mãn kinh/nội tiết và cảm xúc',null,'hormone',{hormone_beauty:2}),
-        opt('🦴 Xương khớp và vận động',null,'bone',{bone:2}),
-        opt('🔄 Chuyển hóa/vòng bụng',null,'metabolism',{metabolism:2}),
-        opt('😴 Ngủ ngon và phục hồi',null,'sleep',{sleep:2}),
-        opt('✨ Da khô, tóc yếu, sắc vóc',null,'beauty',{hormone_beauty:2})
+        opt('Tiền mãn kinh/nội tiết và cảm xúc',null,'hormone',{hormone_beauty:2}),
+        opt('Xương khớp và vận động',null,'bone',{bone:2}),
+        opt('Chuyển hóa/vòng bụng',null,'metabolism',{metabolism:2}),
+        opt('Ngủ ngon và phục hồi',null,'sleep',{sleep:2}),
+        opt('Da khô, tóc yếu, sắc vóc',null,'beauty',{hormone_beauty:2})
       ]
     }
   ],
@@ -997,11 +1070,11 @@ const QUESTION_SETS = {
       sub:'Kết quả sẽ ưu tiên theo mục tiêu của anh.',
       key:'goal',
       opts:[
-        opt('⚡ Năng lượng và tập trung',null,'energy',{stress_energy:2}),
-        opt('💪 Phục hồi sau vận động/cơ bắp',null,'recovery',{activity_screen:2}),
-        opt('😴 Ngủ và giảm stress',null,'sleep',{sleep:2}),
-        opt('🔄 Chuyển hóa và thói quen ăn uống',null,'metabolism',{metabolism:2}),
-        opt('💜 Phong độ nam giới',null,'male_vitality',{male_vitality:2})
+        opt('Năng lượng và tập trung',null,'energy',{stress_energy:2}),
+        opt('Phục hồi sau vận động/cơ bắp',null,'recovery',{activity_screen:2}),
+        opt('Ngủ và giảm stress',null,'sleep',{sleep:2}),
+        opt('Chuyển hóa và thói quen ăn uống',null,'metabolism',{metabolism:2}),
+        opt('Phong độ nam giới',null,'male_vitality',{male_vitality:2})
       ]
     }
   ],
@@ -1106,11 +1179,11 @@ const QUESTION_SETS = {
       sub:'Kết quả sẽ ưu tiên theo mục tiêu của anh.',
       key:'goal',
       opts:[
-        opt('💜 Phong độ và sinh lực',null,'male_vitality',{male_vitality:2}),
-        opt('🔄 Chuyển hóa/vòng bụng',null,'metabolism',{metabolism:2}),
-        opt('🦴 Xương khớp và vận động',null,'bone',{bone:2}),
-        opt('😴 Ngủ và phục hồi',null,'sleep',{sleep:2}),
-        opt('⚡ Năng lượng và sức bền',null,'energy',{stress_energy:2})
+        opt('Phong độ và sinh lực',null,'male_vitality',{male_vitality:2}),
+        opt('Chuyển hóa/vòng bụng',null,'metabolism',{metabolism:2}),
+        opt('Xương khớp và vận động',null,'bone',{bone:2}),
+        opt('Ngủ và phục hồi',null,'sleep',{sleep:2}),
+        opt('Năng lượng và sức bền',null,'energy',{stress_energy:2})
       ]
     }
   ],
@@ -1204,10 +1277,10 @@ const QUESTION_SETS = {
       sub:'TY sẽ ưu tiên gửi nội dung an toàn và phù hợp độ tuổi.',
       key:'child_goal',
       opts:[
-        opt('🥛 Sữa/ăn dặm theo độ tuổi',null,'child_nutrition',{diet:2}),
-        opt('🌿 Tiêu hóa',null,'child_digestion',{digestion:2}),
-        opt('🛡️ Đề kháng',null,'child_immunity',{immunity:2}),
-        opt('📌 Cần chuyên viên tư vấn trước khi chọn sản phẩm',null,'child_safety',{diet:1})
+        opt('Sữa/ăn dặm theo độ tuổi',null,'child_nutrition',{diet:2}),
+        opt('Tiêu hóa',null,'child_digestion',{digestion:2}),
+        opt('Đề kháng',null,'child_immunity',{immunity:2}),
+        opt('Cần chuyên viên tư vấn trước khi chọn sản phẩm',null,'child_safety',{diet:1})
       ]
     }
   ],
@@ -1300,11 +1373,11 @@ const QUESTION_SETS = {
       sub:'Chọn một mục tiêu giúp gợi ý không bị quá rộng.',
       key:'child_goal',
       opts:[
-        opt('🥗 Ăn uống và dinh dưỡng nền',null,'child_nutrition',{diet:2}),
-        opt('🌿 Tiêu hóa và hấp thu',null,'child_digestion',{digestion:2}),
-        opt('🛡️ Đề kháng, ít ốm vặt hơn',null,'child_immunity',{immunity:2}),
-        opt('🦴 Xương răng và phát triển',null,'child_bone',{bone:2}),
-        opt('😴 Ngủ và vận động đều hơn',null,'child_energy',{sleep:2})
+        opt('Ăn uống và dinh dưỡng nền',null,'child_nutrition',{diet:2}),
+        opt('Tiêu hóa và hấp thu',null,'child_digestion',{digestion:2}),
+        opt('Đề kháng, ít ốm vặt hơn',null,'child_immunity',{immunity:2}),
+        opt('Xương răng và phát triển',null,'child_bone',{bone:2}),
+        opt('Ngủ và vận động đều hơn',null,'child_energy',{sleep:2})
       ]
     }
   ],
@@ -1408,11 +1481,11 @@ const QUESTION_SETS = {
       sub:'Kết quả sẽ tập trung đúng vấn đề tuổi học đường của con.',
       key:'child_goal',
       opts:[
-        opt('🥗 Ăn uống và dinh dưỡng tuổi học đường',null,'child_nutrition',{diet:2}),
-        opt('😴 Ngủ, năng lượng và tập trung học tập',null,'child_energy',{sleep:2, stress_energy:1}),
-        opt('🦴 Xương, chiều cao và vận động',null,'child_bone',{bone:2}),
-        opt('🛡️ Đề kháng khi đi học',null,'child_immunity',{immunity:2}),
-        opt('🌿 Tiêu hóa và hấp thu',null,'child_digestion',{digestion:2})
+        opt('Ăn uống và dinh dưỡng tuổi học đường',null,'child_nutrition',{diet:2}),
+        opt('Ngủ, năng lượng và tập trung học tập',null,'child_energy',{sleep:2, stress_energy:1}),
+        opt('Xương, chiều cao và vận động',null,'child_bone',{bone:2}),
+        opt('Đề kháng khi đi học',null,'child_immunity',{immunity:2}),
+        opt('Tiêu hóa và hấp thu',null,'child_digestion',{digestion:2})
       ]
     }
   ],
@@ -1516,11 +1589,11 @@ const QUESTION_SETS = {
       sub:'Kết quả sẽ tập trung đúng vấn đề tuổi teen của con.',
       key:'child_goal',
       opts:[
-        opt('😴 Ngủ, năng lượng và học tập',null,'child_energy',{sleep:2, stress_energy:1}),
-        opt('🥗 Ăn uống và dinh dưỡng tuổi dậy thì',null,'child_nutrition',{diet:2}),
-        opt('🦴 Xương, chiều cao và vận động',null,'child_bone',{bone:2}),
-        opt('🛡️ Đề kháng và phục hồi',null,'child_immunity',{immunity:2}),
-        opt('✨ Da, tóc, tâm trạng và tự tin',null,'teen_beauty',{hormone_beauty:2})
+        opt('Ngủ, năng lượng và học tập',null,'child_energy',{sleep:2, stress_energy:1}),
+        opt('Ăn uống và dinh dưỡng tuổi dậy thì',null,'child_nutrition',{diet:2}),
+        opt('Xương, chiều cao và vận động',null,'child_bone',{bone:2}),
+        opt('Đề kháng và phục hồi',null,'child_immunity',{immunity:2}),
+        opt('Da, tóc, tâm trạng và tự tin',null,'teen_beauty',{hormone_beauty:2})
       ]
     }
   ]
@@ -1970,6 +2043,20 @@ function updateNextButton(q) {
   nextBtn.classList.toggle('ready', isQuestionAnswered(q));
 }
 
+function buildOptsHtml(q) {
+  return q.opts.map((o,i)=>`
+    ${q.multi && o.exclusive ? '<div class="opt-exclusive-label">Chọn riêng</div>' : ''}
+    <div class="opt${q.multi ? ' multi' : ''}${o.exclusive ? ' exclusive' : ''}${isOptionSelected(q, o) ? ' sel' : ''}" onclick="selectOpt(${i})">
+      <div class="opt-radio"></div>
+      <div class="opt-body">
+        <div class="opt-main">${o.text}</div>
+        ${o.sub ? `<div class="opt-sub">${o.sub}</div>` : ''}
+      </div>
+    </div>
+    ${q.multi && o.exclusive && i < q.opts.length - 1 ? '<div class="opt-divider"><span>hoặc chọn các dấu hiệu bên dưới</span></div>' : ''}
+  `).join('');
+}
+
 function _renderQ() {
   const flow = getQuestionFlow();
   if (curQ >= flow.length) curQ = flow.length - 1;
@@ -1990,25 +2077,26 @@ function _renderQ() {
       <div class="q-text">${q.text}</div>
       ${q.sub ? `<div class="q-sub">${q.sub}</div>` : ''}
       ${q.multi ? `<div class="q-limit-note">✓ ${q.multiNote || `Chọn tối đa ${q.maxSelect || 3} ý phù hợp nhất`}</div>` : ''}
-      <div class="opts">
-        ${q.opts.map((o,i)=>`
-          ${q.multi && o.exclusive ? '<div class="opt-exclusive-label">Chọn riêng</div>' : ''}
-          <div class="opt${q.multi ? ' multi' : ''}${o.exclusive ? ' exclusive' : ''}${isOptionSelected(q, o) ? ' sel' : ''}" onclick="selectOpt(${i})">
-            <div class="opt-radio"></div>
-            <div class="opt-body">
-              <div class="opt-main">${o.text}</div>
-              ${o.sub ? `<div class="opt-sub">${o.sub}</div>` : ''}
-            </div>
-          </div>
-          ${q.multi && o.exclusive && i < q.opts.length - 1 ? '<div class="opt-divider"><span>hoặc chọn các dấu hiệu bên dưới</span></div>' : ''}
-        `).join('')}
-      </div>
+      <div class="opts">${buildOptsHtml(q)}</div>
       <div class="next-wrap">
-        <button class="next-inline${isQuestionAnswered(q) ? ' ready' : ''}" id="next-btn" onclick="nextQ()">${isLast ? 'Xem kết quả của tôi ✨' : 'Tiếp theo →'}</button>
+        <button class="next-inline${isQuestionAnswered(q) ? ' ready' : ''}" id="next-btn" onclick="nextQ()">${isLast ? `Xem kết quả của tôi ${icon('sparkle',14)}` : 'Tiếp theo →'}</button>
       </div>
-      ${q.hint ? `<div class="sci"><p>${q.hint}</p></div>` : ''}
+      ${q.hint ? `<div class="hint"><div class="hint-head">${icon('bulb',12)}<span>Lưu ý</span></div><div class="hint-body"><p>${q.hint}</p></div></div>` : ''}
     </div>
   `;
+}
+
+function renderOpts() {
+  const flow = getQuestionFlow();
+  const q = flow[curQ];
+  const isLast = curQ === flow.length - 1;
+  const optsEl = document.querySelector('#q-container .opts');
+  if (optsEl) optsEl.innerHTML = buildOptsHtml(q);
+  const nextBtn = document.getElementById('next-btn');
+  if (nextBtn) {
+    nextBtn.classList.toggle('ready', isQuestionAnswered(q));
+    nextBtn.innerHTML = isLast ? `Xem kết quả của tôi ${icon('sparkle',14)}` : 'Tiếp theo →';
+  }
 }
 
 function selectOpt(i) {
@@ -2063,7 +2151,7 @@ function selectOpt(i) {
     Object.keys(answerScores).forEach(k => { if(k !== 'child_age') delete answerScores[k]; });
   }
 
-  _renderQ();
+  renderOpts();
 }
 
 function prevQ() {
@@ -2121,18 +2209,18 @@ function tierMessage(profile, tier, primaryLabel) {
     const subject = isChildOlder ? 'con' : 'bé';
     const ageText = answers.child_age === '13_plus' ? 'tuổi teen' : answers.child_age === '6_12' ? 'tuổi học đường' : answers.child_age === '2_5' ? 'giai đoạn mầm non' : 'nhóm dưới 2 tuổi';
     const map = {
-      high: { badge:`🌿 Nền tảng của ${subject} khá tốt`, cls:'bg-g', ring:'#3d9e68', title:`${subject[0].toUpperCase()+subject.slice(1)} đang có nền tảng chăm sóc tương đối ổn`, sub:`Kết quả nổi bật nhất liên quan đến ${primaryLabel.toLowerCase()}. Ở ${ageText}, phụ huynh nên duy trì ăn — ngủ — vận động đều và chỉ bổ sung khi phù hợp độ tuổi.`, enc:{icon:'🌟',h:'Duy trì tốt và tối ưu từng bước',p:`Với ${subject}, thay đổi nhỏ nhưng đều đặn thường hiệu quả hơn việc dùng nhiều sản phẩm cùng lúc.`} },
-      mid: { badge:`⚡ Có điểm nên chú ý ở ${ageText}`, cls:'bg-y', ring:'#d4a843', title:`${subject[0].toUpperCase()+subject.slice(1)} có một vài tín hiệu nên được điều chỉnh sớm`, sub:`Nhóm ưu tiên hiện tại là ${primaryLabel.toLowerCase()}. Đây là lúc phù hợp để chỉnh thói quen trước khi vấn đề kéo dài.`, enc:{icon:'💪',h:'Chọn một việc dễ làm trong 7 ngày',p:`Phụ huynh nên bắt đầu từ 1 mục tiêu chính cho ${subject}: ngủ, ăn uống, vận động, đề kháng hoặc tiêu hóa.`} },
-      low: { badge:`🔆 Nên theo dõi kỹ hơn`, cls:'bg-o', ring:'#e07060', title:`${subject[0].toUpperCase()+subject.slice(1)} có nhiều tín hiệu cần được quan tâm`, sub:`Kết quả không phải chẩn đoán. Nếu dấu hiệu kéo dài hoặc ảnh hưởng sinh hoạt, phụ huynh nên tham khảo chuyên gia y tế.`, enc:{icon:'🌱',h:'Ưu tiên an toàn và nền tảng trước',p:`Sản phẩm bổ sung chỉ là phần hỗ trợ. Nền tảng vẫn là bữa ăn, giấc ngủ, vận động, vệ sinh và theo dõi y tế khi cần.`} }
+      high: { badge:`Nền tảng của ${subject} khá tốt`, cls:'bg-g', ring:'#3d9e68', title:`${subject[0].toUpperCase()+subject.slice(1)} đang có nền tảng chăm sóc tương đối ổn`, sub:`Kết quả nổi bật nhất liên quan đến ${primaryLabel.toLowerCase()}. Ở ${ageText}, phụ huynh nên duy trì ăn — ngủ — vận động đều và chỉ bổ sung khi phù hợp độ tuổi.`, enc:{icon:'medal',h:'Duy trì tốt và tối ưu từng bước',p:`Với ${subject}, thay đổi nhỏ nhưng đều đặn thường hiệu quả hơn việc dùng nhiều sản phẩm cùng lúc.`} },
+      mid: { badge:`Có điểm nên chú ý ở ${ageText}`, cls:'bg-y', ring:'#d4a843', title:`${subject[0].toUpperCase()+subject.slice(1)} có một vài tín hiệu nên được điều chỉnh sớm`, sub:`Nhóm ưu tiên hiện tại là ${primaryLabel.toLowerCase()}. Đây là lúc phù hợp để chỉnh thói quen trước khi vấn đề kéo dài.`, enc:{icon:'bolt',h:'Chọn một việc dễ làm trong 7 ngày',p:`Phụ huynh nên bắt đầu từ 1 mục tiêu chính cho ${subject}: ngủ, ăn uống, vận động, đề kháng hoặc tiêu hóa.`} },
+      low: { badge:`Nên theo dõi kỹ hơn`, cls:'bg-o', ring:'#e07060', title:`${subject[0].toUpperCase()+subject.slice(1)} có nhiều tín hiệu cần được quan tâm`, sub:`Kết quả không phải chẩn đoán. Nếu dấu hiệu kéo dài hoặc ảnh hưởng sinh hoạt, phụ huynh nên tham khảo chuyên gia y tế.`, enc:{icon:'leaf',h:'Ưu tiên an toàn và nền tảng trước',p:`Sản phẩm bổ sung chỉ là phần hỗ trợ. Nền tảng vẫn là bữa ăn, giấc ngủ, vận động, vệ sinh và theo dõi y tế khi cần.`} }
     };
     return map[tier];
   }
 
   const pronoun = profile === 'f_mid' ? 'chị' : profile === 'm_young' || profile === 'm_mid' ? 'anh' : 'bạn';
   const map = {
-    high: { badge:'🌿 Nền tảng sức khỏe khá tốt', cls:'bg-g', ring:'#3d9e68', title:`Nền tảng của ${pronoun} đang khá ổn`, sub:`Nhóm cần duy trì và tối ưu thêm là ${primaryLabel.toLowerCase()}. Một vài điều chỉnh nhỏ có thể giúp ${pronoun} giữ phong độ tốt hơn.`, enc:{icon:'🌟',h:'Duy trì tốt — tối ưu đúng điểm',p:'Không cần thay đổi quá nhiều cùng lúc. Hãy chọn một việc nhỏ nhưng làm đều trong 7 ngày.'} },
-    mid: { badge:'⚡ Có tín hiệu nên chú ý', cls:'bg-y', ring:'#d4a843', title:`Cơ thể của ${pronoun} đang gửi một vài tín hiệu đáng chú ý`, sub:`Vấn đề nổi bật nhất là ${primaryLabel.toLowerCase()}. Đây là thời điểm phù hợp để điều chỉnh trước khi ảnh hưởng nhiều hơn.`, enc:{icon:'💪',h:'Bắt đầu từ thay đổi dễ làm nhất',p:'Chọn một mục tiêu chính, theo dõi 7 ngày và chỉ dùng sản phẩm bổ sung như phần hỗ trợ.'} },
-    low: { badge:'🔆 Cần được quan tâm kỹ hơn', cls:'bg-o', ring:'#e07060', title:`${pronoun[0].toUpperCase()+pronoun.slice(1)} nên ưu tiên chăm sóc nền tảng sớm`, sub:`Có nhiều tín hiệu cùng xuất hiện, đặc biệt ở nhóm ${primaryLabel.toLowerCase()}. Nếu triệu chứng kéo dài hoặc ảnh hưởng sinh hoạt, nên tham khảo chuyên gia.`, enc:{icon:'🌱',h:'Ưu tiên phục hồi và an toàn',p:'Đừng bắt đầu bằng quá nhiều sản phẩm. Hãy chỉnh ngủ, ăn uống, vận động và theo dõi phản ứng cơ thể trước.'} }
+    high: { badge:'Nền tảng sức khỏe khá tốt', cls:'bg-g', ring:'#3d9e68', title:`Nền tảng của ${pronoun} đang khá ổn`, sub:`Nhóm cần duy trì và tối ưu thêm là ${primaryLabel.toLowerCase()}. Một vài điều chỉnh nhỏ có thể giúp ${pronoun} giữ phong độ tốt hơn.`, enc:{icon:'medal',h:'Duy trì tốt — tối ưu đúng điểm',p:'Không cần thay đổi quá nhiều cùng lúc. Hãy chọn một việc nhỏ nhưng làm đều trong 7 ngày.'} },
+    mid: { badge:'Có tín hiệu nên chú ý', cls:'bg-y', ring:'#d4a843', title:`Cơ thể của ${pronoun} đang gửi một vài tín hiệu đáng chú ý`, sub:`Vấn đề nổi bật nhất là ${primaryLabel.toLowerCase()}. Đây là thời điểm phù hợp để điều chỉnh trước khi ảnh hưởng nhiều hơn.`, enc:{icon:'bolt',h:'Bắt đầu từ thay đổi dễ làm nhất',p:'Chọn một mục tiêu chính, theo dõi 7 ngày và chỉ dùng sản phẩm bổ sung như phần hỗ trợ.'} },
+    low: { badge:'Cần được quan tâm kỹ hơn', cls:'bg-o', ring:'#e07060', title:`${pronoun[0].toUpperCase()+pronoun.slice(1)} nên ưu tiên chăm sóc nền tảng sớm`, sub:`Có nhiều tín hiệu cùng xuất hiện, đặc biệt ở nhóm ${primaryLabel.toLowerCase()}. Nếu triệu chứng kéo dài hoặc ảnh hưởng sinh hoạt, nên tham khảo chuyên gia.`, enc:{icon:'leaf',h:'Ưu tiên phục hồi và an toàn',p:'Đừng bắt đầu bằng quá nhiều sản phẩm. Hãy chỉnh ngủ, ăn uống, vận động và theo dõi phản ứng cơ thể trước.'} }
   };
   return map[tier];
 }
@@ -2145,67 +2233,67 @@ function guidanceFor(axis, profile) {
 
   const adult = {
     sleep: [
-      {title:'😴 Giấc ngủ là điểm cần ưu tiên', desc:`Trong 7 ngày, ${subject} hãy cố định giờ ngủ/thức, giảm màn hình trước ngủ 30 phút và tránh caffeine sau buổi chiều.`},
-      {title:'🌙 Nhóm hỗ trợ có thể xem xét', desc:'Magie có thể được tham khảo nếu có căng thẳng, mỏi cơ hoặc ngủ chưa sâu. Sản phẩm chỉ hỗ trợ, không thay thế điều chỉnh thói quen ngủ.'}
+      {title:'Giấc ngủ là điểm cần ưu tiên', desc:`Trong 7 ngày, ${subject} hãy cố định giờ ngủ/thức, giảm màn hình trước ngủ 30 phút và tránh caffeine sau buổi chiều.`},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Magie có thể được tham khảo nếu có căng thẳng, mỏi cơ hoặc ngủ chưa sâu. Sản phẩm chỉ hỗ trợ, không thay thế điều chỉnh thói quen ngủ.'}
     ],
     diet: [
-      {title:'🥗 Xây lại nền dinh dưỡng', desc:`${subject[0].toUpperCase()+subject.slice(1)} nên bắt đầu bằng bữa sáng/bữa trưa có đạm, thêm 1 phần rau/quả và uống đủ nước.`},
-      {title:'💊 Nhóm hỗ trợ có thể xem xét', desc:'Vitamin tổng hợp, B12 hoặc kẽm có thể phù hợp khi ăn uống chưa đa dạng hoặc lịch sinh hoạt quá bận.'}
+      {title:'Xây lại nền dinh dưỡng', desc:`${subject[0].toUpperCase()+subject.slice(1)} nên bắt đầu bằng bữa sáng/bữa trưa có đạm, thêm 1 phần rau/quả và uống đủ nước.`},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Vitamin tổng hợp, B12 hoặc kẽm có thể phù hợp khi ăn uống chưa đa dạng hoặc lịch sinh hoạt quá bận.'}
     ],
     hormone_beauty: [
-      {title:'✨ Nội tiết, da tóc và cảm xúc', desc: profile==='f_mid' ? 'Với phụ nữ tiền mãn kinh, khô da, dễ cáu gắt, ngủ kém hoặc chu kỳ ngắn lại là nhóm tín hiệu nên theo dõi. Hãy ưu tiên ngủ, stress, dinh dưỡng và chăm sóc da từ bên trong.' : 'Da, tóc, chu kỳ và cảm xúc thường liên quan đến ngủ, stress, tiêu hóa và nền vi chất. Hãy theo dõi dấu hiệu trong 2–3 chu kỳ.'},
-      {title:'🌸 Nhóm hỗ trợ có thể xem xét', desc:'Có thể tham khảo Her Vigour, Hair Vitality, Femme Probio, Selenium hoặc Vitamin C tùy vấn đề chính; nên tư vấn riêng nếu triệu chứng rõ hoặc kéo dài.'}
+      {title:'Nội tiết, da tóc và cảm xúc', desc: profile==='f_mid' ? 'Với phụ nữ tiền mãn kinh, khô da, dễ cáu gắt, ngủ kém hoặc chu kỳ ngắn lại là nhóm tín hiệu nên theo dõi. Hãy ưu tiên ngủ, stress, dinh dưỡng và chăm sóc da từ bên trong.' : 'Da, tóc, chu kỳ và cảm xúc thường liên quan đến ngủ, stress, tiêu hóa và nền vi chất. Hãy theo dõi dấu hiệu trong 2–3 chu kỳ.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Có thể tham khảo Her Vigour, Hair Vitality, Femme Probio, Selenium hoặc Vitamin C tùy vấn đề chính; nên tư vấn riêng nếu triệu chứng rõ hoặc kéo dài.'}
     ],
     bone: [
-      {title:'🦴 Xương khớp và vận động', desc:`${subject[0].toUpperCase()+subject.slice(1)} nên giảm ngồi lâu, đi bộ/giãn cơ nhẹ hằng ngày và theo dõi mức đau mỏi theo thang 1–10.`},
-      {title:'☀️ Nhóm hỗ trợ có thể xem xét', desc:'D3K2, Calcium Boost, Magie hoặc Joint Bone Advance có thể được cân nhắc tùy mục tiêu và tình trạng thực tế.'}
+      {title:'Xương khớp và vận động', desc:`${subject[0].toUpperCase()+subject.slice(1)} nên giảm ngồi lâu, đi bộ/giãn cơ nhẹ hằng ngày và theo dõi mức đau mỏi theo thang 1–10.`},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'D3K2, Calcium Boost, Magie hoặc Joint Bone Advance có thể được cân nhắc tùy mục tiêu và tình trạng thực tế.'}
     ],
     immunity: [
-      {title:'🛡️ Đề kháng thực tế', desc:'Hãy xem lại ngủ, nước uống, rau/quả, môi trường bụi/lạnh và thói quen thức khuya. Đây là nền trước khi bổ sung.'},
-      {title:'🍋 Nhóm hỗ trợ có thể xem xét', desc:'Vitamin C, Kẽm, Sữa non hoặc Quercetin có thể phù hợp với mục tiêu hỗ trợ đề kháng, hô hấp và phục hồi.'}
+      {title:'Đề kháng thực tế', desc:'Hãy xem lại ngủ, nước uống, rau/quả, môi trường bụi/lạnh và thói quen thức khuya. Đây là nền trước khi bổ sung.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Vitamin C, Kẽm, Sữa non hoặc Quercetin có thể phù hợp với mục tiêu hỗ trợ đề kháng, hô hấp và phục hồi.'}
     ],
     digestion: [
-      {title:'🌿 Tiêu hóa và hấp thu', desc:'Bắt đầu bằng nước, chất xơ, ăn chậm hơn và đi bộ nhẹ sau bữa ăn. Nếu rối loạn kéo dài, nên tham khảo chuyên gia.'},
-      {title:'🦠 Nhóm hỗ trợ có thể xem xét', desc:'Vitamin tổng hợp hoặc Femme Probio có thể phù hợp tùy vấn đề; không nên dùng nhiều sản phẩm khi chưa rõ nguyên nhân.'}
+      {title:'Tiêu hóa và hấp thu', desc:'Bắt đầu bằng nước, chất xơ, ăn chậm hơn và đi bộ nhẹ sau bữa ăn. Nếu rối loạn kéo dài, nên tham khảo chuyên gia.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Vitamin tổng hợp hoặc Femme Probio có thể phù hợp tùy vấn đề; không nên dùng nhiều sản phẩm khi chưa rõ nguyên nhân.'}
     ],
     metabolism: [
-      {title:'🔄 Chuyển hóa và vòng bụng', desc:'Theo dõi bữa tối, đồ ngọt, rượu bia, vận động và số đo vòng bụng trong 7 ngày. Mục tiêu là ổn định thói quen trước.'},
-      {title:'📌 Nhóm hỗ trợ có thể xem xét', desc:'Metabolic Management, Selenium, Magie hoặc vitamin tổng hợp có thể được cân nhắc tùy mục tiêu và tình trạng nền.'}
+      {title:'Chuyển hóa và vòng bụng', desc:'Theo dõi bữa tối, đồ ngọt, rượu bia, vận động và số đo vòng bụng trong 7 ngày. Mục tiêu là ổn định thói quen trước.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Metabolic Management, Selenium, Magie hoặc vitamin tổng hợp có thể được cân nhắc tùy mục tiêu và tình trạng nền.'}
     ],
     stress_energy: [
-      {title:'⚡ Năng lượng và stress', desc:'Theo dõi năng lượng sáng/chiều/tối trong 3 ngày. Nếu tụt năng lượng chiều, hãy xem lại bữa trưa, nước, caffeine và giấc ngủ.'},
-      {title:'💊 Nhóm hỗ trợ có thể xem xét', desc:'Magie, Vitamin B12 hoặc vitamin tổng hợp có thể phù hợp khi mệt, stress hoặc ăn uống chưa đều.'}
+      {title:'Năng lượng và stress', desc:'Theo dõi năng lượng sáng/chiều/tối trong 3 ngày. Nếu tụt năng lượng chiều, hãy xem lại bữa trưa, nước, caffeine và giấc ngủ.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'Magie, Vitamin B12 hoặc vitamin tổng hợp có thể phù hợp khi mệt, stress hoặc ăn uống chưa đều.'}
     ],
     male_vitality: [
-      {title:'💜 Phong độ nam giới', desc:'Phong độ chịu ảnh hưởng bởi ngủ, stress, vòng bụng, vận động và chuyển hóa. Không nên chỉ nhìn vào một sản phẩm riêng lẻ.'},
-      {title:'📌 Nhóm hỗ trợ có thể xem xét', desc:'His Vigour, Selenium, Magie hoặc Metabolic Management có thể được tư vấn tùy mục tiêu và tình trạng sức khỏe nền.'}
+      {title:'Phong độ nam giới', desc:'Phong độ chịu ảnh hưởng bởi ngủ, stress, vòng bụng, vận động và chuyển hóa. Không nên chỉ nhìn vào một sản phẩm riêng lẻ.'},
+      {title:'Nhóm hỗ trợ có thể xem xét', desc:'His Vigour, Selenium, Magie hoặc Metabolic Management có thể được tư vấn tùy mục tiêu và tình trạng sức khỏe nền.'}
     ]
   };
 
   const child = {
     sleep: [
-      {title: age==='13_plus' ? '😴 Giấc ngủ tuổi teen' : '😴 Ngủ và học tập', desc: age==='13_plus' ? 'Trong 7 ngày, thử cho con cố định giờ ngủ/thức, giảm màn hình trước ngủ 30 phút và tránh trà/cà phê/nước tăng lực buổi chiều tối.' : 'Cho con cố định giờ ngủ, giảm màn hình trước ngủ và theo dõi mức tỉnh táo buổi sáng. Ngủ đều giúp học tập, đề kháng và phát triển tốt hơn.'}
+      {title: age==='13_plus' ? 'Giấc ngủ tuổi teen' : 'Ngủ và học tập', desc: age==='13_plus' ? 'Trong 7 ngày, thử cho con cố định giờ ngủ/thức, giảm màn hình trước ngủ 30 phút và tránh trà/cà phê/nước tăng lực buổi chiều tối.' : 'Cho con cố định giờ ngủ, giảm màn hình trước ngủ và theo dõi mức tỉnh táo buổi sáng. Ngủ đều giúp học tập, đề kháng và phát triển tốt hơn.'}
     ],
     diet: [
-      {title: age==='6_12' ? '🥗 Bữa ăn tuổi học đường' : age==='13_plus' ? '🥗 Dinh dưỡng tuổi dậy thì' : '🥗 Bữa ăn của bé', desc: age==='13_plus' ? 'Ưu tiên bữa sáng có đạm, thêm rau/quả, giảm đồ ngọt/trà sữa thay bữa chính. Tuổi dậy thì cần đủ năng lượng và vi chất nền.' : age==='6_12' ? 'Ưu tiên bữa sáng có đạm, món phụ lành mạnh và giảm đồ ngọt. Không ép con ăn nhiều, hãy làm bữa ăn đều hơn.' : 'Không cần ép bé ăn hoàn hảo. Hãy thêm từng thay đổi nhỏ: một loại rau/quả, một nguồn đạm tốt hoặc giảm dần đồ ngọt.'}
+      {title: age==='6_12' ? 'Bữa ăn tuổi học đường' : age==='13_plus' ? 'Dinh dưỡng tuổi dậy thì' : 'Bữa ăn của bé', desc: age==='13_plus' ? 'Ưu tiên bữa sáng có đạm, thêm rau/quả, giảm đồ ngọt/trà sữa thay bữa chính. Tuổi dậy thì cần đủ năng lượng và vi chất nền.' : age==='6_12' ? 'Ưu tiên bữa sáng có đạm, món phụ lành mạnh và giảm đồ ngọt. Không ép con ăn nhiều, hãy làm bữa ăn đều hơn.' : 'Không cần ép bé ăn hoàn hảo. Hãy thêm từng thay đổi nhỏ: một loại rau/quả, một nguồn đạm tốt hoặc giảm dần đồ ngọt.'}
     ],
     immunity: [
-      {title:'🛡️ Đề kháng', desc: age==='under2' ? 'Với trẻ dưới 2 tuổi, nếu hay ốm/chậm tăng cân/bỏ bú, phụ huynh nên tham khảo chuyên gia y tế trước khi dùng sản phẩm.' : 'Theo dõi ngủ, nước uống, rau/quả, vệ sinh tay, môi trường bụi/lạnh và triệu chứng kéo dài. Sản phẩm chỉ hỗ trợ nền.'}
+      {title:'Đề kháng', desc: age==='under2' ? 'Với trẻ dưới 2 tuổi, nếu hay ốm/chậm tăng cân/bỏ bú, phụ huynh nên tham khảo chuyên gia y tế trước khi dùng sản phẩm.' : 'Theo dõi ngủ, nước uống, rau/quả, vệ sinh tay, môi trường bụi/lạnh và triệu chứng kéo dài. Sản phẩm chỉ hỗ trợ nền.'}
     ],
     digestion: [
-      {title:'🌿 Tiêu hóa', desc:'Tăng nước, chất xơ, vận động nhẹ và tạo thói quen đi vệ sinh đều. Nếu táo bón/tiêu chảy/đau bụng kéo dài, nên hỏi chuyên gia.'}
+      {title:'Tiêu hóa', desc:'Tăng nước, chất xơ, vận động nhẹ và tạo thói quen đi vệ sinh đều. Nếu táo bón/tiêu chảy/đau bụng kéo dài, nên hỏi chuyên gia.'}
     ],
     bone: [
-      {title: age==='13_plus' ? '🦴 Xương, chiều cao và vận động tuổi teen' : '🦴 Xương, chiều cao và vận động', desc:'Ưu tiên vận động ngoài trời, ngủ đủ, tư thế học đúng và dinh dưỡng nền. Canxi chỉ là một phần, cần xem cả D3/K2 và vận động.'}
+      {title: age==='13_plus' ? 'Xương, chiều cao và vận động tuổi teen' : 'Xương, chiều cao và vận động', desc:'Ưu tiên vận động ngoài trời, ngủ đủ, tư thế học đúng và dinh dưỡng nền. Canxi chỉ là một phần, cần xem cả D3/K2 và vận động.'}
     ],
     activity_screen: [
-      {title:'🏃 Vận động và màn hình', desc: age==='13_plus' ? 'Sau 60–90 phút học/ngồi lâu, con nên đứng dậy giãn cơ 2–3 phút. Mỗi ngày nên có 15–20 phút vận động con thích.' : 'Mỗi ngày nên có vận động ngoài trời hoặc trò chơi vận động phù hợp. Giảm màn hình sẽ hỗ trợ ngủ, mắt, tư thế và năng lượng.'}
+      {title:'Vận động và màn hình', desc: age==='13_plus' ? 'Sau 60–90 phút học/ngồi lâu, con nên đứng dậy giãn cơ 2–3 phút. Mỗi ngày nên có 15–20 phút vận động con thích.' : 'Mỗi ngày nên có vận động ngoài trời hoặc trò chơi vận động phù hợp. Giảm màn hình sẽ hỗ trợ ngủ, mắt, tư thế và năng lượng.'}
     ],
     stress_energy: [
-      {title: age==='13_plus' ? '⚡ Năng lượng học tập' : '⚡ Tập trung học tập', desc: age==='13_plus' ? 'Nếu con hay mệt khi học, hãy kiểm tra 3 việc trước: ngủ muộn, bỏ bữa sáng và dùng nhiều màn hình.' : 'Nếu con dễ mệt/cáu khi học, phụ huynh nên xem lại bữa sáng, ngủ, màn hình và vận động.'}
+      {title: age==='13_plus' ? 'Năng lượng học tập' : 'Tập trung học tập', desc: age==='13_plus' ? 'Nếu con hay mệt khi học, hãy kiểm tra 3 việc trước: ngủ muộn, bỏ bữa sáng và dùng nhiều màn hình.' : 'Nếu con dễ mệt/cáu khi học, phụ huynh nên xem lại bữa sáng, ngủ, màn hình và vận động.'}
     ],
     hormone_beauty: [
-      {title:'✨ Da, tóc, tâm trạng tuổi teen', desc:'Mụn, tóc yếu, tâm trạng thất thường hoặc stress học tập có thể liên quan đến tuổi dậy thì, ngủ, ăn uống và áp lực. Nếu ảnh hưởng tự tin/sinh hoạt, nên tư vấn riêng.'}
+      {title:'Da, tóc, tâm trạng tuổi teen', desc:'Mụn, tóc yếu, tâm trạng thất thường hoặc stress học tập có thể liên quan đến tuổi dậy thì, ngủ, ăn uống và áp lực. Nếu ảnh hưởng tự tin/sinh hoạt, nên tư vấn riêng.'}
     ]
   };
 
@@ -2214,22 +2302,22 @@ function guidanceFor(axis, profile) {
 
 function allProducts() {
   return {
-    magie: {icon:'🌙', name:'Magiê', desc:'Hỗ trợ thư giãn, giấc ngủ, cơ bắp và phục hồi khi căng thẳng.', tag:'core'},
-    b12: {icon:'⚡', name:'Vitamin B12', desc:'Hỗ trợ năng lượng, thần kinh và khả năng tập trung khi chế độ ăn chưa cân đối.', tag:'core'},
-    vitotal: {icon:'💊', name:'Vitamin tổng hợp', desc:'Hỗ trợ lấp khoảng trống vi chất khi ăn uống chưa đa dạng hoặc lịch sinh hoạt bận rộn.', tag:'core'},
-    vitc: {icon:'🍋', name:'Vitamin C', desc:'Hỗ trợ sức khỏe đề kháng và chống oxy hóa. Với trẻ nhỏ cần chọn dạng dùng phù hợp, tránh nguy cơ hóc/nghẹn.', tag:'core'},
-    zinc: {icon:'🔬', name:'Kẽm', desc:'Hỗ trợ dinh dưỡng nền, đề kháng và phục hồi.', tag:'core'},
-    d3k2: {icon:'☀️', name:'D3K2', desc:'Hỗ trợ nền tảng xương răng và hấp thu canxi khi phù hợp nhu cầu.', tag:'core'},
-    canxi: {icon:'🥛', name:'Calcium Boost / Sữa bổ sung canxi', desc:'Tham khảo cho mục tiêu xương răng, chiều cao hoặc bổ sung canxi qua dạng sữa.', tag:'boost'},
-    joint: {icon:'🦴', name:'Joint Bone Advance', desc:'Tham khảo cho mục tiêu xương khớp, vận động và đau mỏi ở người trưởng thành.', tag:'boost'},
-    her: {icon:'🌸', name:'Her Vigour', desc:'Tham khảo cho mục tiêu hỗ trợ phụ nữ giai đoạn thay đổi nội tiết, sắc vóc và cảm xúc.', tag:'boost'},
-    his: {icon:'💜', name:'His Vigour', desc:'Tham khảo cho mục tiêu phong độ và sức khỏe nam giới.', tag:'boost'},
-    hair: {icon:'💇', name:'Hair Vitality', desc:'Tham khảo cho mục tiêu tóc yếu, rụng tóc và sắc vóc từ bên trong.', tag:'boost'},
-    femme: {icon:'🦠', name:'Femme Probio', desc:'Tham khảo cho mục tiêu cân bằng hệ vi sinh phụ nữ và chăm sóc vùng kín.', tag:'boost'},
-    selenium: {icon:'🔮', name:'Selenium', desc:'Hỗ trợ chống oxy hóa, miễn dịch và tuyến giáp khi phù hợp nhu cầu.', tag:'boost'},
-    metabolic: {icon:'🔄', name:'Metabolic Management', desc:'Tham khảo cho mục tiêu chuyển hóa, vòng bụng và kiểm soát cân nặng.', tag:'boost'},
-    colostrum: {icon:'🍼', name:'Sữa non Moochews', desc:'Tham khảo cho mục tiêu hỗ trợ đề kháng nền khi phù hợp độ tuổi sử dụng.', tag:'boost'},
-    quercetin: {icon:'🌬️', name:'Quercetin', desc:'Tham khảo cho mục tiêu hô hấp trên và đề kháng khi phù hợp nhu cầu.', tag:'boost'}
+    magie: {icon:'moon', name:'Magiê', desc:'Hỗ trợ thư giãn, giấc ngủ, cơ bắp và phục hồi khi căng thẳng.', tag:'core'},
+    b12: {icon:'bolt', name:'Vitamin B12', desc:'Hỗ trợ năng lượng, thần kinh và khả năng tập trung khi chế độ ăn chưa cân đối.', tag:'core'},
+    vitotal: {icon:'pill', name:'Vitamin tổng hợp', desc:'Hỗ trợ lấp khoảng trống vi chất khi ăn uống chưa đa dạng hoặc lịch sinh hoạt bận rộn.', tag:'core'},
+    vitc: {icon:'citrus', name:'Vitamin C', desc:'Hỗ trợ sức khỏe đề kháng và chống oxy hóa. Với trẻ nhỏ cần chọn dạng dùng phù hợp, tránh nguy cơ hóc/nghẹn.', tag:'core'},
+    zinc: {icon:'flask', name:'Kẽm', desc:'Hỗ trợ dinh dưỡng nền, đề kháng và phục hồi.', tag:'core'},
+    d3k2: {icon:'sun', name:'D3K2', desc:'Hỗ trợ nền tảng xương răng và hấp thu canxi khi phù hợp nhu cầu.', tag:'core'},
+    canxi: {icon:'droplet', name:'Calcium Boost / Sữa bổ sung canxi', desc:'Tham khảo cho mục tiêu xương răng, chiều cao hoặc bổ sung canxi qua dạng sữa.', tag:'boost'},
+    joint: {icon:'plus', name:'Joint Bone Advance', desc:'Tham khảo cho mục tiêu xương khớp, vận động và đau mỏi ở người trưởng thành.', tag:'boost'},
+    her: {icon:'flower', name:'Her Vigour', desc:'Tham khảo cho mục tiêu hỗ trợ phụ nữ giai đoạn thay đổi nội tiết, sắc vóc và cảm xúc.', tag:'boost'},
+    his: {icon:'heart', name:'His Vigour', desc:'Tham khảo cho mục tiêu phong độ và sức khỏe nam giới.', tag:'boost'},
+    hair: {icon:'sparkle', name:'Hair Vitality', desc:'Tham khảo cho mục tiêu tóc yếu, rụng tóc và sắc vóc từ bên trong.', tag:'boost'},
+    femme: {icon:'shield', name:'Femme Probio', desc:'Tham khảo cho mục tiêu cân bằng hệ vi sinh phụ nữ và chăm sóc vùng kín.', tag:'boost'},
+    selenium: {icon:'gem', name:'Selenium', desc:'Hỗ trợ chống oxy hóa, miễn dịch và tuyến giáp khi phù hợp nhu cầu.', tag:'boost'},
+    metabolic: {icon:'refresh', name:'Metabolic Management', desc:'Tham khảo cho mục tiêu chuyển hóa, vòng bụng và kiểm soát cân nặng.', tag:'boost'},
+    colostrum: {icon:'droplet', name:'Sữa non Moochews', desc:'Tham khảo cho mục tiêu hỗ trợ đề kháng nền khi phù hợp độ tuổi sử dụng.', tag:'boost'},
+    quercetin: {icon:'wind', name:'Quercetin', desc:'Tham khảo cho mục tiêu hô hấp trên và đề kháng khi phù hợp nhu cầu.', tag:'boost'}
   };
 }
 
@@ -2511,8 +2599,9 @@ function showResult() {
   let count = 0;
   const iv = setInterval(() => { count = Math.min(count + 2, r.score); scoreEl.textContent = count; if (count >= r.score) clearInterval(iv); }, 20);
 
+  const badgeIcon = { 'bg-g':'leaf', 'bg-y':'bolt', 'bg-o':'warning' }[r.tierMsg.cls] || 'leaf';
   document.getElementById('r-badge').className = `r-badge ${r.tierMsg.cls}`;
-  document.getElementById('r-badge').textContent = r.tierMsg.badge;
+  document.getElementById('r-badge').innerHTML = `${icon(badgeIcon,13)}<span>${r.tierMsg.badge}</span>`;
   document.getElementById('r-title').textContent = r.tierMsg.title;
   document.getElementById('r-sub').textContent = r.tierMsg.sub;
 
@@ -2521,38 +2610,38 @@ function showResult() {
   const childWord = childOlder ? 'con' : 'bé';
 
   let body = '';
-  body += `<div class="enc"><div class="enc-ico">${r.tierMsg.enc.icon}</div><h3>${r.tierMsg.enc.h}</h3><p>${r.tierMsg.enc.p}</p></div>`;
+  body += `<div class="enc"><div class="enc-ico">${icon(r.tierMsg.enc.icon,22)}</div><h3>${r.tierMsg.enc.h}</h3><p>${r.tierMsg.enc.p}</p></div>`;
 
-  body += `<div class="rs"><div class="rs-hdr">🔬 <h3>${isParent ? `Nhóm chăm sóc nên ưu tiên cho ${childWord}` : 'Nhóm chăm sóc nên ưu tiên của bạn'}</h3></div><div class="rs-body">
+  body += `<div class="rs"><div class="rs-hdr">${icon('flask',15)}<h3>${isParent ? `Nhóm chăm sóc nên ưu tiên cho ${childWord}` : 'Nhóm chăm sóc nên ưu tiên của bạn'}</h3></div><div class="rs-body">
     ${r.viChat.map(v => `<div class="mi"><div class="mi-dot d-${v.dot}"></div><div><h4>${v.title}</h4><p>${v.desc}</p></div></div>`).join('')}
   </div></div>`;
 
   if (!isParent && r.adultCare && r.adultCare.length) {
-    body += `<div class="rs"><div class="rs-hdr">💡 <h3>Hướng chăm sóc thực tế theo mục tiêu của bạn</h3></div><div class="rs-body"><div class="cg">
+    body += `<div class="rs"><div class="rs-hdr">${icon('bulb',15)}<h3>Hướng chăm sóc thực tế theo mục tiêu của bạn</h3></div><div class="rs-body"><div class="cg">
       ${r.adultCare.map(c => `<div class="cc"><h4>${c.title}</h4><p>${c.desc}</p></div>`).join('')}
     </div></div></div>`;
   }
 
   if (isParent && r.habits && r.habits.length) {
-    body += `<div class="rs"><div class="rs-hdr">💡 <h3>Thói quen chăm sóc ${childWord} nên chú ý</h3></div><div class="rs-body">
+    body += `<div class="rs"><div class="rs-hdr">${icon('bulb',15)}<h3>Thói quen chăm sóc ${childWord} nên chú ý</h3></div><div class="rs-body">
       ${r.habits.map(h => `<div class="hb"><h4>${h.title}</h4><p>${h.desc}</p></div>`).join('')}
     </div></div>`;
   }
 
   if (r.coreProds.length) {
-    body += `<div class="rs"><div class="rs-hdr">🌿 <h3>${isParent ? `Dinh dưỡng nền tảng có thể tham khảo cho ${childWord}` : 'Dưỡng chất nền tảng cho bạn'}</h3></div><div class="rs-body">
-      ${r.coreProds.map(p => `<div class="pi"><div class="pi-ico">${p.icon}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tc">Nền tảng</div></div>`).join('')}
+    body += `<div class="rs"><div class="rs-hdr">${icon('leaf',15)}<h3>${isParent ? `Dinh dưỡng nền tảng có thể tham khảo cho ${childWord}` : 'Dưỡng chất nền tảng cho bạn'}</h3></div><div class="rs-body">
+      ${r.coreProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon,19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tc">Nền tảng</div></div>`).join('')}
     </div></div>`;
   }
 
   if (r.boostProds.length) {
-    body += `<div class="rs"><div class="rs-hdr">⭐ <h3>${isParent ? `Gợi ý bổ sung theo mục tiêu của ${childWord}` : 'Bổ sung theo mục tiêu của bạn'}</h3></div><div class="rs-body">
-      ${r.boostProds.map(p => `<div class="pi"><div class="pi-ico">${p.icon}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tb">Mục tiêu</div></div>`).join('')}
+    body += `<div class="rs"><div class="rs-hdr">${icon('star',15)}<h3>${isParent ? `Gợi ý bổ sung theo mục tiêu của ${childWord}` : 'Bổ sung theo mục tiêu của bạn'}</h3></div><div class="rs-body">
+      ${r.boostProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon,19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tb">Mục tiêu</div></div>`).join('')}
     </div></div>`;
   }
 
   if (r.childDisclaimer) {
-    body += `<div class="rs"><div class="rs-hdr">⚠️ <h3>Lưu ý an toàn cho trẻ</h3></div><div class="rs-body"><div class="hb"><p>${r.childDisclaimer}</p></div></div></div>`;
+    body += `<div class="rs"><div class="rs-hdr">${icon('warning',15)}<h3>Lưu ý an toàn cho trẻ</h3></div><div class="rs-body"><div class="hb"><p>${r.childDisclaimer}</p></div></div></div>`;
   }
 
   body += `<div class="share-blk"><div class="share-inner">
@@ -2570,15 +2659,15 @@ function showResult() {
       <p>${isParent ? `Nếu phụ huynh muốn TY gửi thêm kiến thức, gợi ý chăm sóc và lộ trình tham khảo phù hợp với kết quả của ${childWord}, hãy điền thông tin bên dưới.` : 'Nếu bạn muốn chúng tôi gửi thêm kiến thức, thực đơn và lộ trình bổ sung dưỡng chất được thiết kế riêng cho kết quả của bạn — hoàn toàn miễn phí — hãy điền thông tin bên dưới.'}</p>
     </div>
     <div class="lead-body">
-      <div class="fr"><label>Họ và tên *</label><input type="text" id="f-name" placeholder="Ví dụ: Nguyễn Thị Lan"/></div>
+      <div class="fr"><label>Họ và tên *</label><input type="text" id="f-name" data-rule="required" onblur="validateField(this)" placeholder="Ví dụ: Nguyễn Thị Lan"/><div class="fr-err">Vui lòng nhập họ và tên.</div></div>
       <div class="fr2">
-        <div class="fr" style="margin-bottom:0"><label>Ngày sinh *</label><input type="text" id="f-dob" inputmode="numeric" autocomplete="bday" placeholder="VD: 25/08/1990" maxlength="10" oninput="formatDOB(this)"/><div class="opt-sub" style="margin-top:6px">Nhập theo định dạng ngày/tháng/năm, không cần chọn lịch.</div></div>
-        <div class="fr" style="margin-bottom:0"><label>Giới tính *</label><select id="f-gender"><option value="">Chọn...</option><option>Nữ</option><option>Nam</option><option>Khác</option></select></div>
+        <div class="fr" style="margin-bottom:0"><label>Ngày sinh *</label><input type="text" id="f-dob" data-rule="dob" onblur="validateField(this)" inputmode="numeric" autocomplete="bday" placeholder="VD: 25/08/1990" maxlength="10" oninput="formatDOB(this)"/><div class="opt-sub" style="margin-top:6px">Nhập theo định dạng ngày/tháng/năm, không cần chọn lịch.</div><div class="fr-err">Ngày sinh chưa đúng định dạng.</div></div>
+        <div class="fr" style="margin-bottom:0"><label>Giới tính *</label><select id="f-gender" data-rule="select" onblur="validateField(this)" onchange="validateField(this)"><option value="">Chọn...</option><option>Nữ</option><option>Nam</option><option>Khác</option></select><div class="fr-err">Vui lòng chọn giới tính.</div></div>
       </div>
-      <div class="fr"><label>Số điện thoại *</label><input type="tel" id="f-phone" placeholder="0912 345 678"/></div>
-      <div class="fr"><label>Email</label><input type="email" id="f-email" placeholder="email@gmail.com"/></div>
-      <p class="priv">🔒 Thông tin của bạn được bảo mật tuyệt đối. Chúng tôi không spam và không chia sẻ cho bên thứ ba.</p>
-      <button class="submit" onclick="submitForm()">Gửi & nhận lộ trình sức khỏe miễn phí 🌿</button>
+      <div class="fr"><label>Số điện thoại *</label><input type="tel" id="f-phone" data-rule="phone" onblur="validateField(this)" placeholder="0912 345 678"/><div class="fr-err">Số điện thoại chưa hợp lệ.</div></div>
+      <div class="fr"><label>Email</label><input type="email" id="f-email" data-rule="email" onblur="validateField(this)" placeholder="email@gmail.com"/><div class="fr-err">Email chưa đúng định dạng.</div></div>
+      <p class="priv">${icon('shield',13)} Thông tin của bạn được bảo mật tuyệt đối. Chúng tôi không spam và không chia sẻ cho bên thứ ba.</p>
+      <button class="submit" onclick="submitForm()">${icon('leaf',15)} Gửi & nhận lộ trình sức khỏe miễn phí</button>
     </div>
   </div>
   <p class="disc">Kết quả bài test mang tính tham khảo và giáo dục sức khỏe, không thay thế chẩn đoán y tế chuyên nghiệp. Nếu có bệnh nền, đang dùng thuốc, mang thai/cho con bú hoặc dùng cho trẻ nhỏ, vui lòng tham khảo chuyên gia y tế trước khi sử dụng sản phẩm.<br>TY Health Supplements — Nhập khẩu chính ngạch từ New Zealand.</p>`;
@@ -2604,19 +2693,38 @@ function isValidDOBText(value) {
   return dt.getFullYear() === y && dt.getMonth() === mo - 1 && dt.getDate() === d;
 }
 
-async function submitForm() {
-  const name = document.getElementById('f-name').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-  if (!name || !phone) { alert('Vui lòng điền Họ tên và Số điện thoại để tiếp tục.'); return; }
+function validateField(el) {
+  const wrap = el.closest('.fr');
+  const rule = el.dataset.rule;
+  const val = el.value.trim();
+  let ok = true;
+  if (rule === 'required' || rule === 'select') ok = val.length > 0;
+  else if (rule === 'phone') ok = /^(0|\+84)\d{9,10}$/.test(val.replace(/[\s.-]/g, ''));
+  else if (rule === 'email') ok = val === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  else if (rule === 'dob') ok = isValidDOBText(val);
+  wrap.classList.toggle('invalid', !ok);
+  wrap.classList.toggle('valid', ok && val !== '');
+  return ok;
+}
 
-  const dob = document.getElementById('f-dob')?.value || "";
-  if (dob && !isValidDOBText(dob)) {
-    alert('Ngày sinh chưa đúng định dạng. Vui lòng nhập theo dạng DD/MM/YYYY, ví dụ 25/08/1990.');
+async function submitForm() {
+  const fields = ['f-name', 'f-dob', 'f-gender', 'f-phone', 'f-email'].map(id => document.getElementById(id));
+  const results = fields.map(el => [el, validateField(el)]);
+  const firstInvalid = results.find(([, ok]) => !ok);
+  if (firstInvalid) {
+    const wrap = firstInvalid[0].closest('.fr');
+    wrap.classList.add('shake');
+    setTimeout(() => wrap.classList.remove('shake'), 400);
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    firstInvalid[0].focus();
     return;
   }
 
-  const gender = document.getElementById('f-gender')?.value || "";
-  const email = document.getElementById('f-email')?.value.trim() || "";
+  const name = fields[0].value.trim();
+  const dob = fields[1].value.trim();
+  const gender = fields[2].value.trim();
+  const phone = fields[3].value.trim();
+  const email = fields[4].value.trim();
   const rs = getResultSummary();
   const br = buildResult(answers);
 
