@@ -2147,7 +2147,7 @@
         },
         {
           tag: 'Tiêu hóa & hấp thu',
-          text: 'Tiêu hóa của bạn gần đây thế nào?',
+          text: 'Hệ tiêu hóa của bạn gần đây thế nào?',
           sub: 'Tiêu hóa ảnh hưởng đến hấp thu vi chất, da, năng lượng và cảm giác nhẹ người.',
           key: 'fy_digestion',
           opts: [
@@ -2158,7 +2158,7 @@
         },
         {
           tag: 'Ăn uống & nhịp sống',
-          text: 'Bữa ăn của bạn gần đây có đủ đều và đủ chất không?',
+          text: 'Bữa ăn của bạn gần đây có đều đặn và đủ chất không?',
           sub: 'Bỏ bữa, ăn nhanh, ít rau/quả hoặc ăn kiêng quá mức có thể làm năng lượng và sắc vóc xuống nhanh.',
           key: 'fy_diet',
           opts: [
@@ -2182,7 +2182,7 @@
         },
         {
           tag: 'Vận động & cơ thể',
-          text: 'Bạn vận động hoặc có thời gian ra ngoài trời như thế nào?',
+          text: 'Bạn vận động hoặc có thường xuyên ra ngoài trời không?',
           sub: 'Ít vận động có thể ảnh hưởng đến năng lượng, giấc ngủ, chuyển hóa, da và cảm giác cơ thể nặng nề.',
           key: 'fy_activity',
           opts: [
@@ -2245,7 +2245,7 @@
         },
         {
           tag: 'Chuyển hóa & vòng bụng',
-          text: 'Gần đây cân nặng, vòng bụng hoặc cảm giác chuyển hóa của chị thế nào?',
+          text: 'Gần đây cân nặng, vòng bụng hoặc cảm giác của chị thế nào?',
           sub: 'Giai đoạn nội tiết thay đổi có thể làm việc giữ dáng và năng lượng khó hơn trước.',
           key: 'fm_metabolism',
           opts: [
@@ -2400,7 +2400,7 @@
         },
         {
           tag: 'Vòng bụng & chuyển hóa',
-          text: 'Anh có thấy vòng bụng, cân nặng hoặc cảm giác chuyển hóa thay đổi không?',
+          text: 'Anh có thấy vòng bụng, cân nặng hoặc cảm giác cơ thể thay đổi không?',
           sub: 'Dù còn trẻ, vòng bụng tăng sớm thường liên quan đến ăn muộn, đồ ngọt, rượu bia, ít vận động và stress.',
           key: 'my_metabolism',
           opts: [
@@ -3090,7 +3090,7 @@
       });
       setMultiQuestion('fy_sleep_stress', {
         opts: [
-          multiOpt('Ngủ và stress khá ổn', 'Chọn ý này nếu bạn phục hồi tốt', 'none', { sleep: 0 }, true),
+          multiOpt('Ngủ và tâm trạng khá ổn', 'Chọn ý này nếu bạn phục hồi tốt', 'none', { sleep: 0 }, true),
           multiOpt('Khó ngủ hoặc ngủ không sâu vài ngày/tuần', 'Dậy chưa thật sự tỉnh táo', 'sleep', { sleep: 3 }),
           multiOpt('Stress, dễ căng hoặc khó thư giãn', 'Áp lực ảnh hưởng năng lượng/cảm xúc', 'stress', { stress_energy: 3 }),
           multiOpt('Sáng dậy mệt, chiều dễ tụt năng lượng', 'Có thể cần ưu tiên phục hồi', 'fatigue', { stress_energy: 2, sleep: 2 })
@@ -3140,7 +3140,7 @@
       });
       setMultiQuestion('fm_sleep', {
         opts: [
-          multiOpt('Ngủ khá tốt và dậy tỉnh', 'Chọn ý này nếu phục hồi ổn', 'none', { sleep: 0 }, true),
+          multiOpt('Ngủ tốt, dậy khá tỉnh', 'Chọn ý này nếu phục hồi ổn', 'none', { sleep: 0 }, true),
           multiOpt('Khó ngủ hoặc thức giấc giữa đêm', 'Có thể đi cùng thay đổi nội tiết/stress', 'insomnia', { sleep: 3 }),
           multiOpt('Hay bốc hỏa, nóng trong hoặc khó chịu về đêm', 'Nên theo dõi giai đoạn tiền mãn kinh', 'hot_flash', { sleep: 2, hormone_beauty: 2 }),
           multiOpt('Dậy vẫn mệt, ngày dễ cáu hoặc thiếu năng lượng', 'Nên ưu tiên phục hồi', 'tired_mood', { sleep: 2, stress_energy: 2 })
@@ -3242,7 +3242,7 @@
       });
       setMultiQuestion('u2_health', {
         opts: [
-          multiOpt('Con khỏe, tăng trưởng khá ổn', 'Chọn ý này nếu chưa có dấu hiệu rõ', 'none', { immunity: 0 }, true),
+          multiOpt('Con khỏe, phát triển khá ổn', 'Chọn ý này nếu chưa có dấu hiệu rõ', 'none', { immunity: 0 }, true),
           multiOpt('Hay ốm vặt hoặc dễ mệt hơn bình thường', 'Cần theo dõi đề kháng', 'sick', { immunity: 2 }),
           multiOpt('Chậm tăng cân/ăn bú kém', 'Nên tư vấn theo độ tuổi', 'growth_feeding', { diet: 3, immunity: 1 }),
           multiOpt('Có bệnh nền, dị ứng hoặc đang dùng thuốc', 'Cần hỏi chuyên gia trước khi dùng sản phẩm', 'medical', { immunity: 3, diet: 2 })
