@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luồng hoạt động — TY Health Check</title>
+  <style>
+    :root{--navy:#12343b;--blue:#187a9a;--blue-soft:#e4f4f8;--green:#2d7a56;--green-soft:#e8f4ed;--line:#bfd4d8;--paper:#f7f5ef;--ink:#17353b;--muted:#557078;--white:#fff}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Arial,sans-serif}
+    main{max-width:1180px;margin:auto;padding:40px 24px 56px} h1{margin:0 0 8px;font-size:32px} .lead{margin:0 0 34px;color:var(--muted)}
+    .flow{display:grid;gap:18px}.node{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--white);padding:16px 18px;box-shadow:0 6px 18px rgba(20,60,67,.07)}
+    .node h2,.node h3{margin:0 0 5px;font-size:17px}.node p{margin:0;color:var(--muted);font-size:13px}.start,.result{background:var(--navy);border-color:var(--navy);color:#fff;text-align:center}.start p,.result p{color:#d5edf2}.arrow{text-align:center;color:var(--blue);font-size:26px;line-height:1}
+    .decision{max-width:460px;margin:auto;background:var(--blue-soft);border-color:#8fc8d7;text-align:center}.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative}.branch{border-top:4px solid var(--blue)}.branch:nth-child(2){border-top-color:var(--green)}.branch:nth-child(3){border-top-color:#bc7b22}
+    .branch ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:13px}.branch li+li{margin-top:4px}.multi{background:var(--green-soft);border-color:#a8d8ba}.rules{display:grid;grid-template-columns:1fr 1fr;gap:16px}.rule{padding:13px 15px;border-left:4px solid var(--green);background:var(--white);border-radius:0 10px 10px 0;color:var(--muted);font-size:13px}.rule strong{color:var(--ink)}
+    .legend{margin-top:30px;color:var(--muted);font-size:12px}.legend span{display:inline-block;width:10px;height:10px;margin:0 6px 0 14px;border-radius:50%;background:var(--blue)}.legend span:first-child{margin-left:0}.legend .green{background:var(--green)}
+    @media(max-width:720px){main{padding:28px 16px 40px}h1{font-size:26px}.branches,.rules{grid-template-columns:1fr}.arrow{font-size:22px}}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Luồng hoạt động của TY Health Check</h1>
+    <p class="lead">Sơ đồ tóm tắt điều hướng màn hình, nhánh câu hỏi và quy tắc chọn đáp án trong <code>index.html</code>.</p>
+
+    <section class="flow" aria-label="Sơ đồ luồng bài kiểm tra">
+      <article class="node start"><h2>Tải trang</h2><p>Hiện loader → tải logo, font và nội dung</p></article>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <article class="node"><h2>Trang chủ</h2><p>Người dùng chọn “Bắt đầu khám phá”.</p></article>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <article class="node decision"><h2>Chọn hồ sơ</h2><p>Hồ sơ là điều kiện quyết định toàn bộ nhóm câu hỏi tiếp theo.</p></article>
+      <div class="arrow" aria-hidden="true">↓</div>
+
+      <div class="branches">
+        <article class="node branch"><h3>Người lớn nữ</h3><ul><li>Nữ 18–40</li><li>Nữ 40+</li><li>Câu hỏi theo nội tiết, giấc ngủ, tiêu hóa, sức khỏe nền</li></ul></article>
+        <article class="node branch"><h3>Người lớn nam</h3><ul><li>Nam 18–40</li><li>Nam 40+</li><li>Câu hỏi theo hồi phục, stress, vận động, sức khỏe nền</li></ul></article>
+        <article class="node branch"><h3>Phụ huynh</h3><ul><li>Chọn nhóm tuổi của trẻ</li><li>Dưới 2 / 2–5 / 6–12 / 13+</li><li>Đi tới bộ câu hỏi tương ứng</li></ul></article>
+      </div>
+
+      <div class="arrow" aria-hidden="true">↓</div>
+      <article class="node multi"><h2>Trả lời câu hỏi</h2><p>Mỗi bước cập nhật thanh tiến trình; nút “Tiếp theo” chỉ mở khi đã có đáp án.</p></article>
+
+      <div class="rules" aria-label="Quy tắc câu hỏi nhiều đáp án">
+        <div class="rule"><strong>Câu chọn một:</strong> chọn đáp án mới sẽ thay thế đáp án cũ.</div>
+        <div class="rule"><strong>Câu chọn nhiều:</strong> được chọn tối đa 3 ý; đáp án “ổn/không có dấu hiệu” là lựa chọn riêng, không thể đi kèm các ý khác.</div>
+      </div>
+
+      <div class="arrow" aria-hidden="true">↓</div>
+      <article class="node"><h2>Tổng hợp điểm</h2><p>Điểm của từng đáp án được cộng vào các trục sức khỏe để xác định nhu cầu chính và phụ.</p></article>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <article class="node result"><h2>Kết quả &amp; gửi thông tin</h2><p>Hiển thị gợi ý chăm sóc/sản phẩm → người dùng điền form → dữ liệu gửi tới Google Apps Script → màn hình cảm ơn.</p></article>
+    </section>
+
+    <p class="legend"><span></span>Luồng chính <span class="green"></span>Quy tắc lựa chọn</p>
+  </main>
+</body>
+</html>
