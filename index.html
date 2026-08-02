@@ -284,6 +284,27 @@
       color: var(--g);
     }
 
+    .grow-ico {
+      color: var(--g);
+      margin-left: 7px;
+      vertical-align: -2px;
+      transform-origin: bottom center;
+      animation:
+        leafPop .6s cubic-bezier(.34,1.56,.64,1) .35s both,
+        leafSway 3.2s ease-in-out 1.1s infinite;
+    }
+
+    @keyframes leafPop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.18) rotate(10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes leafSway {
+      0%, 100% { transform: rotate(-7deg); }
+      50% { transform: rotate(7deg); }
+    }
+
     .home-p {
       font-size: 13.5px;
       color: var(--tm);
@@ -2028,7 +2049,7 @@
       <div class="home-hero">
         <div class="home-tag"><span class="ico" data-icon="sparkle" data-size="12"></span> Bài test sức khỏe cá nhân hóa
         </div>
-        <h2 class="home-h">Cơ thể bạn<br>đang <em>cần gì</em><br>nhất lúc này?</h2>
+        <h2 class="home-h">Cơ thể bạn<br>đang <em>cần gì</em><span class="ico grow-ico" data-icon="leaf" data-size="22"></span><br>nhất lúc này?</h2>
         <p class="home-p">Bài test cá nhân hóa - hệ thống phân tích và gợi ý những dưỡng chất phù hợp riêng cho bạn</p>
         <button class="cta" onclick="show('s-quiz'); renderQ()"><span class="cta-label">Bắt đầu khám phá</span><span class="cta-arrow">→</span></button>
         <div class="home-meta">
