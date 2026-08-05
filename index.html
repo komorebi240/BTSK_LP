@@ -1240,6 +1240,34 @@
       line-height: 1.65;
     }
 
+    /* product row: right-side tag + link button per product */
+    .pi-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .pi-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 11px;
+      border-radius: 8px;
+      background: var(--g);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: transform .15s, opacity .15s;
+    }
+
+    .pi-btn:active {
+      transform: scale(.95);
+      opacity: .85;
+    }
+
     /* share */
     .share-blk {
       background: var(--wh);
@@ -2144,6 +2172,26 @@
   </div><!-- /#app -->
   <script>
     const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbySkvwpua601TZobxy6W0IyyIgAwaK1XPuvlbh0yskJ0HtZoGr2ToHShSK0yJfm2-5g/exec"; // Google Apps Script Web App /exec
+    // TODO: dán link Zalo Mini App tương ứng cho từng sản phẩm vào bên dưới.
+    // Ví dụ: magie: "https://zalo.me/s/xxxxxxxxx/magie"
+    const PRODUCT_URLS = {
+      magie: "https://zmini.app/vBbja9zF6xLu",
+      b12: "",
+      vitotal: "",
+      vitc: "https://zmini.app/Azh4Gmo8xc",
+      zinc: "https://zmini.app/P3RfEBKTVczcT",
+      d3k2: "https://zmini.app/ks0PIchYdiZG",
+      canxi: "https://zmini.app/MCzNpRASwF",
+      joint: "https://zmini.app/aMALLdjmR",
+      moochewsJoint: "https://zmini.app/qhm5jt5nbk8",
+      her: "",
+      his: "https://zmini.app/EcnzTZs1tu6",
+      femme: "https://zmini.app/wXGHUjtyhwMiM",
+      selenium: "",
+      metabolic: "https://zmini.app/AiN5KYFht",
+      colostrum: "https://zmini.app/ewISYgdTv",
+      quercetin: "https://zmini.app/q5tigxeO5"
+    };
     console.log("TY Health Check - V14.2 Female Hormone Product Logic");
 
     // ══════════════════════════════════════════════════════
@@ -3797,11 +3845,11 @@
         ],
         hormone_beauty: [
           { title: 'Nội tiết, da tóc và cảm xúc', desc: profile === 'f_mid' ? 'Với phụ nữ tiền mãn kinh, khô da, dễ cáu gắt, ngủ kém hoặc chu kỳ ngắn lại là nhóm tín hiệu nên theo dõi. Hãy ưu tiên ngủ, stress, dinh dưỡng và chăm sóc da từ bên trong.' : 'Da, tóc, chu kỳ và cảm xúc thường liên quan đến ngủ, stress, tiêu hóa và nền vi chất. Hãy theo dõi dấu hiệu trong 2–3 chu kỳ.' },
-          { title: 'Nhóm hỗ trợ có thể xem xét', desc: 'Có thể tham khảo Her Vigour, Hair Vitality, Femme Probio, Selenium hoặc Vitamin C tùy vấn đề chính; nên tư vấn riêng nếu triệu chứng rõ hoặc kéo dài.' }
+          { title: 'Nhóm hỗ trợ có thể xem xét', desc: 'Có thể tham khảo Her Vigour, Femme Probio, Selenium hoặc Vitamin C tùy vấn đề chính; nên tư vấn riêng nếu triệu chứng rõ hoặc kéo dài.' }
         ],
         bone: [
           { title: 'Xương khớp và vận động', desc: `${subject[0].toUpperCase() + subject.slice(1)} nên giảm ngồi lâu, đi bộ/giãn cơ nhẹ hằng ngày và theo dõi mức đau mỏi theo thang 1–10.` },
-          { title: 'Nhóm hỗ trợ có thể xem xét', desc: 'D3K2, Calcium Boost, Magie hoặc Joint Bone Advance có thể được cân nhắc tùy mục tiêu và tình trạng thực tế.' }
+          { title: 'Nhóm hỗ trợ có thể xem xét', desc: 'D3K2, Calcium Boost, Magie hoặc Advanced Joint Support có thể được cân nhắc tùy mục tiêu và tình trạng thực tế.' }
         ],
         immunity: [
           { title: 'Đề kháng thực tế', desc: 'Hãy xem lại ngủ, nước uống, rau/quả, môi trường bụi/lạnh và thói quen thức khuya. Đây là nền trước khi bổ sung.' },
@@ -3856,25 +3904,29 @@
     }
 
     function allProducts() {
-      return {
-        magie: { icon: 'moon', name: 'Magiê', desc: 'Hỗ trợ thư giãn, giấc ngủ, cơ bắp và phục hồi khi căng thẳng.', tag: 'core' },
+      const P = {
+        magie: { icon: 'moon', name: 'Magie', desc: 'Hỗ trợ thư giãn, giấc ngủ, cơ bắp và phục hồi khi căng thẳng.', tag: 'core' },
         b12: { icon: 'bolt', name: 'Vitamin B12', desc: 'Hỗ trợ năng lượng, thần kinh và khả năng tập trung khi chế độ ăn chưa cân đối.', tag: 'core' },
         vitotal: { icon: 'pill', name: 'Vitamin tổng hợp', desc: 'Hỗ trợ lấp khoảng trống vi chất khi ăn uống chưa đa dạng hoặc lịch sinh hoạt bận rộn.', tag: 'core' },
         vitc: { icon: 'citrus', name: 'Vitamin C', desc: 'Hỗ trợ sức khỏe đề kháng và chống oxy hóa. Với trẻ nhỏ cần chọn dạng dùng phù hợp, tránh nguy cơ hóc/nghẹn.', tag: 'core' },
         zinc: { icon: 'flask', name: 'Kẽm', desc: 'Hỗ trợ dinh dưỡng nền, đề kháng và phục hồi.', tag: 'core' },
         d3k2: { icon: 'sun', name: 'D3K2', desc: 'Hỗ trợ nền tảng xương răng và hấp thu canxi khi phù hợp nhu cầu.', tag: 'core' },
-        canxi: { icon: 'droplet', name: 'Calcium Boost / Sữa bổ sung canxi', desc: 'Tham khảo cho mục tiêu xương răng, chiều cao hoặc bổ sung canxi qua dạng sữa.', tag: 'boost' },
-        joint: { icon: 'plus', name: 'Joint Bone Advance', desc: 'Tham khảo cho mục tiêu xương khớp, vận động và đau mỏi ở người trưởng thành.', tag: 'boost' },
+        canxi: { icon: 'droplet', name: 'Sữa bổ sung canxi', desc: 'Tham khảo cho mục tiêu xương răng, chiều cao hoặc bổ sung canxi qua dạng sữa.', tag: 'boost' },
+        joint: { icon: 'plus', name: 'Advanced Joint Support', desc: 'Tham khảo cho mục tiêu xương khớp, vận động và đau mỏi ở người trưởng thành.', tag: 'boost' },
+        moochewsJoint: { icon: 'droplet', name: 'Sữa cơ xương khớp', desc: 'Tham khảo cho mục tiêu hỗ trợ xương khớp và vận động ở người lớn tuổi.', tag: 'boost' },
         her: { icon: 'flower', name: 'Her Vigour', desc: 'Tham khảo cho mục tiêu hỗ trợ phụ nữ giai đoạn thay đổi nội tiết, sắc vóc và cảm xúc.', tag: 'boost' },
         his: { icon: 'heart', name: 'His Vigour', desc: 'Tham khảo cho mục tiêu phong độ và sức khỏe nam giới.', tag: 'boost' },
-        hair: { icon: 'sparkle', name: 'Hair Vitality', desc: 'Tham khảo cho mục tiêu tóc yếu, rụng tóc và sắc vóc từ bên trong.', tag: 'boost' },
         femme: { icon: 'shield', name: 'Femme Probio', desc: 'Tham khảo cho mục tiêu cân bằng hệ vi sinh phụ nữ và chăm sóc vùng kín.', tag: 'boost' },
         selenium: { icon: 'gem', name: 'Selenium', desc: 'Hỗ trợ chống oxy hóa, miễn dịch và tuyến giáp khi phù hợp nhu cầu.', tag: 'boost' },
         metabolic: { icon: 'refresh', name: 'Metabolic Management', desc: 'Tham khảo cho mục tiêu chuyển hóa, vòng bụng và kiểm soát cân nặng.', tag: 'boost' },
         colostrum: { icon: 'droplet', name: 'Sữa non Moochews', desc: 'Tham khảo cho mục tiêu hỗ trợ đề kháng nền khi phù hợp độ tuổi sử dụng.', tag: 'boost' },
         quercetin: { icon: 'wind', name: 'Quercetin', desc: 'Tham khảo cho mục tiêu hô hấp trên và đề kháng khi phù hợp nhu cầu.', tag: 'boost' }
       };
+      // Gắn key cho từng sản phẩm để nút "Xem" biết lấy đúng link từ PRODUCT_URLS.
+      Object.entries(P).forEach(([k, v]) => { v.key = k; });
+      return P;
     }
+
 
     function productForAxis(axis, profile) {
       const P = allProducts();
@@ -3901,9 +3953,9 @@
         diet: { core: [P.vitotal, P.b12], boost: [] },
         immunity: { core: [P.vitc, P.zinc], boost: [P.colostrum, P.quercetin] },
         digestion: { core: [P.vitotal], boost: [P.femme] },
-        bone: { core: [P.d3k2, P.magie], boost: [P.canxi, P.joint] },
+        bone: (profile === 'f_mid' || profile === 'm_mid') ? { core: [P.d3k2, P.magie], boost: [P.canxi, P.joint, P.moochewsJoint] } : { core: [P.d3k2, P.magie], boost: [P.canxi, P.joint] },
         stress_energy: { core: [P.magie, P.b12, P.vitotal], boost: [] },
-        hormone_beauty: profile === 'f_mid' ? { core: [P.her, P.femme], boost: [P.magie, P.selenium] } : { core: [P.vitc, P.zinc], boost: [P.hair, P.femme, P.her] },
+        hormone_beauty: profile === 'f_mid' ? { core: [P.her, P.femme], boost: [P.magie, P.selenium] } : { core: [P.vitc, P.zinc], boost: [P.femme, P.her] },
         metabolism: { core: [P.magie, P.selenium], boost: [P.metabolic] },
         activity_screen: { core: [P.magie, P.d3k2], boost: [P.joint] },
         male_vitality: { core: [P.magie, P.selenium], boost: [P.his, P.metabolic] }
@@ -3959,7 +4011,10 @@
       // Riêng nhóm nữ 40+ có nhu cầu nội tiết/tiền mãn kinh: cho phép tối đa 4 sản phẩm
       // để không bỏ sót Her Vigour, Femme Probio và sản phẩm hỗ trợ theo vấn đề phụ như chuyển hóa/giấc ngủ.
       const isFMidHormoneCase = ans.profile === 'f_mid' && ((scores.hormone_beauty || 0) >= 3 || primary.key === 'hormone_beauty' || secondary?.key === 'hormone_beauty');
-      const maxProductCount = isFMidHormoneCase ? 4 : 3;
+      // Nhóm người lớn tuổi (40+) có nhu cầu xương khớp: cho phép tối đa 4 sản phẩm
+      // để đảm bảo Moochews Joint Bone luôn được ưu tiên hiển thị cùng D3K2.
+      const isOlderBoneCase = (ans.profile === 'f_mid' || ans.profile === 'm_mid') && ((scores.bone || 0) >= 3 || primary.key === 'bone' || secondary?.key === 'bone');
+      const maxProductCount = (isFMidHormoneCase || isOlderBoneCase) ? 4 : 3;
 
       if (isFMidHormoneCase) {
         const P = allProducts();
@@ -3978,6 +4033,22 @@
         }
 
         // Nếu vẫn còn chỗ, bổ sung theo kết quả còn lại.
+        coreProds = uniqueByName([...prioritizedProducts, ...coreProds, ...boostProds]).slice(0, maxProductCount);
+        boostProds = coreProds.slice(2);
+        coreProds = coreProds.slice(0, Math.min(2, coreProds.length));
+      } else if (isOlderBoneCase) {
+        const P = allProducts();
+        const prioritizedProducts = [P.d3k2, P.moochewsJoint];
+
+        // Nếu có tín hiệu cần hỗ trợ chuyển hóa, ưu tiên Metabolic Management; nếu ngủ/stress, ưu tiên Magie; còn lại dùng Calcium Boost.
+        if ((scores.metabolism || 0) >= 2 || primary.key === 'metabolism' || secondary?.key === 'metabolism') {
+          prioritizedProducts.push(P.metabolic);
+        } else if ((scores.sleep || 0) >= 2 || (scores.stress_energy || 0) >= 2 || primary.key === 'sleep' || secondary?.key === 'sleep' || primary.key === 'stress_energy' || secondary?.key === 'stress_energy') {
+          prioritizedProducts.push(P.magie);
+        } else {
+          prioritizedProducts.push(P.canxi);
+        }
+
         coreProds = uniqueByName([...prioritizedProducts, ...coreProds, ...boostProds]).slice(0, maxProductCount);
         boostProds = coreProds.slice(2);
         coreProds = coreProds.slice(0, Math.min(2, coreProds.length));
@@ -4133,6 +4204,15 @@
       }
     }
 
+    function goToProduct(key) {
+      const url = PRODUCT_URLS[key];
+      if (!url || url.trim() === "") {
+        alert("Liên kết sản phẩm này đang được cập nhật. Vui lòng quay lại sau.");
+        return;
+      }
+      window.location.href = url;
+    }
+
     function getResultSummary() {
       return {
         badge: document.getElementById("r-badge")?.textContent || "",
@@ -4185,13 +4265,13 @@
 
       if (r.coreProds.length) {
         body += `<div class="rs"><div class="rs-hdr">${icon('leaf', 15)}<h3>${isParent ? `Dinh dưỡng nền tảng có thể tham khảo cho ${childWord}` : 'Dưỡng chất nền tảng cho bạn'}</h3></div><div class="rs-body">
-      ${r.coreProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon, 19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tc">Nền tảng</div></div>`).join('')}
+      ${r.coreProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon, 19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-right"><div class="pi-tag tc">Nền tảng</div><button class="pi-btn" onclick="goToProduct('${p.key}')">Xem</button></div></div>`).join('')}
     </div></div>`;
       }
 
       if (r.boostProds.length) {
         body += `<div class="rs"><div class="rs-hdr">${icon('star', 15)}<h3>${isParent ? `Gợi ý bổ sung theo mục tiêu của ${childWord}` : 'Bổ sung theo mục tiêu của bạn'}</h3></div><div class="rs-body">
-      ${r.boostProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon, 19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-tag tb">Mục tiêu</div></div>`).join('')}
+      ${r.boostProds.map(p => `<div class="pi"><div class="pi-ico">${icon(p.icon, 19)}</div><div class="pi-info"><h4>${p.name}</h4><p>${p.desc}</p></div><div class="pi-right"><div class="pi-tag tb">Mục tiêu</div><button class="pi-btn" onclick="goToProduct('${p.key}')">Xem</button></div></div>`).join('')}
     </div></div>`;
       }
 
